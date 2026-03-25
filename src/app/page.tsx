@@ -6,7 +6,7 @@ export default function Home() {
     <main id="main-content" className={styles.main}>
       <section className={styles.hero} aria-labelledby="hero-heading">
         <p className={`mono muted ${styles.eyebrow}`}>
-          Jo Wolff — Frontend Engineer
+          Jo Wolff - Frontend Engineer
         </p>
         <h1 id="hero-heading" className={styles.headline}>
           I build interfaces
@@ -15,7 +15,7 @@ export default function Home() {
         </h1>
         <p className={styles.subhead}>
           Fifteen years in the craft. Formerly Amazon. English major first,
-          engineer second — it shows in the work.
+          engineer second - it shows in the work.
         </p>
       </section>
 

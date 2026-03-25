@@ -40,8 +40,7 @@ export default function Header() {
         id="main-nav"
         aria-label="Main navigation"
         aria-hidden={isHidden ? true : undefined}
-        // @ts-expect-error — inert is valid HTML but not yet in React types
-        inert={isHidden ? "" : undefined}
+        inert={isHidden || undefined}
         className={`${styles.nav} ${open ? styles.navOpen : ""}`}
       >
         <Link href="/work" onClick={close}>
