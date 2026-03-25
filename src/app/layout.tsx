@@ -30,8 +30,8 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const viewport: Viewport = {
-  viewportFit: "cover",
   themeColor: "#0f0e0d",
+  viewportFit: "cover",
 };
 
 export const metadata: Metadata = {
@@ -67,6 +67,15 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black",
+    title: siteConfig.name,
+  },
+  other: {
+    "apple-mobile-web-app-capable": "yes",
+    "mobile-web-app-capable": "yes",
+  },
 };
 
 export default function RootLayout({
@@ -80,19 +89,6 @@ export default function RootLayout({
       className={`${playfair.variable} ${sourceSerif.variable} ${jetbrainsMono.variable}`}
     >
       <body>
-        <div
-          aria-hidden="true"
-          style={{
-            position: "fixed",
-            top: "-100px",
-            left: 0,
-            right: 0,
-            height: "200px",
-            background: "var(--color-bg)",
-            zIndex: 99,
-            pointerEvents: "none",
-          }}
-        />
         <SkipNav />
         <Header />
         {children}
