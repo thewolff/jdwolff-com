@@ -3,7 +3,7 @@ import {
   Source_Serif_4,
   JetBrains_Mono,
 } from "next/font/google";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/app/lib/siteConfig";
 import SkipNav from "./components/SkipNav/SkipNav";
 import Header from "./components/Header/Header";
@@ -28,6 +28,10 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500"],
   variable: "--font-mono",
 });
+
+export const viewport: Viewport = {
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
