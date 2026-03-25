@@ -80,6 +80,19 @@ export default function RootLayout({
       className={`${playfair.variable} ${sourceSerif.variable} ${jetbrainsMono.variable}`}
     >
       <body>
+        <div
+          aria-hidden="true"
+          style={{
+            position: "fixed",
+            top: "-100px",
+            left: 0,
+            right: 0,
+            height: "200px",
+            background: "var(--color-bg)",
+            zIndex: 99,
+            pointerEvents: "none",
+          }}
+        />
         <SkipNav />
         <Header />
         {children}

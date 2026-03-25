@@ -13,16 +13,6 @@
   z-index: 100;
 }
 
-.header::before {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  right: 0;
-  height: env(safe-area-inset-top, 0);
-  background: var(--color-bg);
-}
-
 .logo {
   display: flex;
   flex-direction: column;
