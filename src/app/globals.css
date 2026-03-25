@@ -66,6 +66,7 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizelegibility;
+  background-color: var(--color-bg);
 }
 
 body {
