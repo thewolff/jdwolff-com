@@ -148,3 +148,9 @@
     transform: translateY(-7px) rotate(-45deg);
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition: none;
+  }
+}

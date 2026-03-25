@@ -3,12 +3,12 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <section className={styles.hero}>
+    <main id="main-content" className={styles.main}>
+      <section className={styles.hero} aria-labelledby="hero-heading">
         <p className={`mono muted ${styles.eyebrow}`}>
           Jo Wolff — Frontend Engineer
         </p>
-        <h1 className={styles.headline}>
+        <h1 id="hero-heading" className={styles.headline}>
           I build interfaces
           <br />
           <em>that get out of the way.</em>
@@ -19,69 +19,101 @@ export default function Home() {
         </p>
       </section>
 
-      <section className={styles.section}>
-        <p className={`mono muted ${styles.sectionLabel}`}>Selecte d Work</p>
+      <section className={styles.section} aria-labelledby="work-heading">
+        <h2 id="work-heading" className={`mono muted ${styles.sectionLabel}`}>
+          Selected Work
+        </h2>
         <div className={styles.workGrid}>
-          <Link href="/work/meridian" className={styles.workItem}>
+          <article className={styles.workItem}>
             <span className={`mono muted ${styles.workMeta}`}>
               Amazon · Design Systems
             </span>
-            <h2 className={styles.workTitle}>Meridian</h2>
+            <h3 className={styles.workTitle}>Meridian</h3>
             <p className={styles.workDesc}>
               Founding team member of Amazon's enterprise design system. Built
               for scale, designed for humans.
             </p>
-            <span className={`mono ${styles.workLink}`}>Read the story →</span>
-          </Link>
-          <Link href="/work/dodgers" className={styles.workItem}>
+            <Link href="/work/meridian" className={`mono ${styles.workLink}`}>
+              Read the story <span aria-hidden="true">→</span>
+              <span className="visually-hidden">
+                {" "}
+                about Meridian design system
+              </span>
+            </Link>
+          </article>
+
+          <article className={styles.workItem}>
             <span className={`mono muted ${styles.workMeta}`}>
               LA Dodgers · 2015 · CLIO Award
             </span>
-            <h2 className={styles.workTitle}>Dig ital Trading Room</h2>
+            <h3 className={styles.workTitle}>Dig ital Trading Room</h3>
             <p className={styles.workDesc}>
               Award-winning real-time interface for one of baseball's most
               storied franchises.
             </p>
-            <span className={`mono ${styles.workLink}`}>Read the story →</span>
-          </Link>
+            <Link href="/work/dodgers" className={`mono ${styles.workLink}`}>
+              Read the story <span aria-hidden="true">→</span>
+              <span className="visually-hidden">
+                {" "}
+                about the Dodgers Digital Trading Room
+              </span>
+            </Link>
+          </article>
         </div>
       </section>
 
-      <section className={styles.section}>
-        <p className={`mono muted ${styles.sectionLabel}`}>
+      <section className={styles.section} aria-labelledby="writing-heading ">
+        <h2
+          id="writing-heading"
+          className={`mono muted ${styles.sectionLabel}`}
+        >
           Writing & Thinking
-        </p>
-        <div className={styles.writingList}>
-          <Link href="/writing/self-taught" className={styles.writingItem}>
-            <h3 className={styles.writingTitle}>
-              I have no CS degree. Here's what I learned anyway.
-            </h3>
-            <p className={`muted ${styles.writingDesc}`}>
-              On being self-taught, imposter syndrome, and why the English major
-              thing ended up being an advantage.
-            </p>
-          </Link>
-          <Link href="/writing/accessibility" className={styles.writingItem}>
-            <h3 className={styles.writingTitle}>
-              Accessibility isn't a checklist. It's a disposition.
-            </h3>
-            <p className={`muted ${styles.writingDesc}`}>
-              What fifteen years of building for everyone taught me about what
-              software is actually for.
-            </p>
-          </Link>
-          <Link href="/writing/design-systems" className={styles.writingItem}>
-            <h3 className={styles.writingTitle}>
-              Design systems are a trust problem, not a component problem.
-            </h3>
-            <p className={`muted ${styles.writingDesc}`}>
-              The technical part is the easy part. The hard part is getting
-              fifty teams to believe in the same foundation.
-            </p>
-          </Link>
-        </div>
+        </h2>
+        <ol className={styles.writingList} role="list">
+          <li>
+            <article className={styles.writingItem}>
+              <h3 className={styles.writingTitle}>
+                <Link href="/writing/self-taught">
+                  I have no CS degree. Here's what I learned anyway.
+                </Link>
+              </h3>
+              <p className={`muted ${styles.writingDesc}`}>
+                On being self-taught, imposter syndrome, and why the English
+                major thing ended up being an advantage.
+              </p>
+            </article>
+          </li>
+
+          <li>
+            <article className={styles.writingItem}>
+              <h3 className={styles.writingTitle}>
+                <Link href="/writing/accessibility">
+                  Accessibility isn't a checklist. It's a disposition.
+                </Link>
+              </h3>
+              <p className={`muted ${styles.writingDesc}`}>
+                What fifteen years of building for everyone taught me about what
+                software is actually for.
+              </p>
+            </article>
+          </li>
+
+          <li>
+            <article className={styles.writingItem}>
+              <h3 className={styles.writingTitle}>
+                <Link href="/writing/design-systems">
+                  Design systems are a trust problem, not a component problem.
+                </Link>
+              </h3>
+              <p className={`muted ${styles.writingDesc}`}>
+                The technical part is the easy part. The hard part is getting
+                fifty teams to believe in the same foundation.
+              </p>
+            </article>
+          </li>
+        </ol>
         <Link href="/writing" className={`mono ${styles.allLink}`}>
-          All writing →
+          All writing <span aria-hidden="true">→</span>
         </Link>
       </section>
     </main>

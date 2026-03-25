@@ -4,7 +4,9 @@ import {
   Source_Serif_4,
   JetBrains_Mono,
 } from "next/font/google";
-import Header from "@/components/Header";
+import Header from "@/components/Header/Header";
+import SkipNav from "@/components/SkipNav/SkipNav";
+import Footer from "@/components/Footer/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -43,8 +45,10 @@ export default function RootLayout({
       className={`${playfair.variable} ${sourceSerif.variable} ${jetbrainsMono.variable}`}
     >
       <body>
+        <SkipNav />
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );
