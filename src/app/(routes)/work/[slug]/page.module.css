@@ -1,0 +1,28 @@
+   .article {
+     font-size: var(--text-lg);
+     line-height: 1.8;
+   }
+
+   .article p + p {
+     margin-top: var(--space-6);
+   }
+
+   .article h2 {
+     font-size: var(--text-2xl);
+     margin-top: var(--space-12);
+     margin-bottom: var(--space-4);
+   }
+
+   .article h3 {
+     font-size: var(--text-xl);
+     margin-top: var(--space-8);
+     margin-bottom: var(--space-3);
+   }
+
+   .article blockquote {
+     border-left: 3px solid var(--color-accent);
+     padding-left: var(--space-6);
+     margin: var(--space-8) 0;
+     color: var(--color-text-muted);
+     font-style: italic;
+   }
