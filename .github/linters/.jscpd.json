@@ -1,0 +1,15 @@
+{
+  "threshold": 10,
+  "reporters": ["html", "markdown", "console"],
+  "output": "./reports/jscpd",
+  "ignore": [
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/.github/**",
+    "**/.vscode/**",
+    "**/.storybook/**",
+    "**/eslint.config.mjs/**",
+    "**/*.md",
+    "**/__tests__/**"
+  ]
+}
