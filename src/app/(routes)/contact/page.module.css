@@ -1,0 +1,25 @@
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.contactLink {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-6) 0;
+  border-bottom: 1px solid var(--color-border);
+  text-decoration: none;
+  color: var(--color-text);
+  transition: color var(--transition-fast);
+}
+
+.contactLink:hover {
+  color: var(--color-accent);
+}
+
+.contactLink span:last-child {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+}

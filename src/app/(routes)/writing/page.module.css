@@ -1,0 +1,35 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-8) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.title {
+  font-size: var(--text-2xl);
+  font-weight: 400;
+  margin: 0;
+}
+
+.title a {
+  color: var(--color-text);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.title a:hover {
+  color: var(--color-accent);
+}
+
+.desc {
+  font-size: var(--text-base);
+  max-width: 60ch;
+}

@@ -4,9 +4,9 @@ import {
   Source_Serif_4,
   JetBrains_Mono,
 } from "next/font/google";
-import Header from "@/components/Header/Header";
-import SkipNav from "@/components/SkipNav/SkipNav";
-import Footer from "@/components/Footer/Footer";
+import Header from "@/app/components/Header/Header";
+import SkipNav from "@/app/components/SkipNav/SkipNav";
+import Footer from "@/app/components/Footer/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
