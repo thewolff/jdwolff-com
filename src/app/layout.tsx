@@ -9,6 +9,7 @@ import SkipNav from "./components/SkipNav/SkipNav";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import "./globals.css";
+import ConsoleGame from "@/app/components/ConsoleGame/ConsoleGame";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -78,6 +79,7 @@ export default function RootLayout({
         <Header />
         {children}
         <Footer />
+        <ConsoleGame />
       </body>
     </html>
   );

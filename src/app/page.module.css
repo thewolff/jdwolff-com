@@ -126,15 +126,15 @@
   transition: color var(--transition-fast);
 }
 
-.writingItem:hover .writingTitle {
-  color: var(--color-accent);
-}
-
 .writingTitle {
   font-family: var(--font-serif);
   font-size: var(--text-xl);
   font-weight: 400;
   transition: color var(--transition-fast);
+}
+
+.writingItem:hover .writingTitle {
+  color: var(--color-accent);
 }
 
 .writingDesc {
@@ -148,7 +148,7 @@
   letter-spacing: 0.04em;
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .main {
     padding-left: var(--space-6);
     padding-right: var(--space-6);

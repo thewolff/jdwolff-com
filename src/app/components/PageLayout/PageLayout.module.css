@@ -36,7 +36,7 @@
   max-width: 56rem;
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .main {
     padding-left: var(--space-6);
     padding-right: var(--space-6);

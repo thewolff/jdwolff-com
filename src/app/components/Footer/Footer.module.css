@@ -42,7 +42,7 @@
   font-size: var(--text-sm);
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .inner {
     flex-direction: column;
     align-items: flex-start;

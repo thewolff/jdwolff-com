@@ -6,20 +6,17 @@
   --color-bg: #0f0e0d;
   --color-bg-elevated: #1a1815;
   --color-bg-subtle: #242220;
-
   --color-text: #e8e4de;
   --color-text-muted: #9e9890;
   --color-text-faint: #828070;
-
   --color-accent: #9b7fc4;
   --color-accent-hover: #c4a8e8;
   --color-accent-dim: #3d2f52;
-
   --color-border: #2e2b27;
 
   /* Typography */
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-body: "Source Serif 4", Georgia, serif;
+  --font-serif: "Playfair Display", georgia, serif;
+  --font-body: "Source Serif 4", georgia, serif;
   --font-mono: "JetBrains Mono", "Courier New", monospace;
 
   /* Type scale */
@@ -68,7 +65,7 @@ html {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+  text-rendering: optimizelegibility;
 }
 
 body {
@@ -124,18 +121,23 @@ h6 {
 h1 {
   font-size: var(--text-5xl);
 }
+
 h2 {
   font-size: var(--text-4xl);
 }
+
 h3 {
   font-size: var(--text-3xl);
 }
+
 h4 {
   font-size: var(--text-2xl);
 }
+
 h5 {
   font-size: var(--text-xl);
 }
+
 h6 {
   font-size: var(--text-lg);
 }
@@ -182,18 +184,23 @@ code {
   100% {
     transform: translate(0, 0);
   }
+
   10% {
     transform: translate(-2%, -3%);
   }
+
   30% {
     transform: translate(3%, 2%);
   }
+
   50% {
     transform: translate(-1%, 4%);
   }
+
   70% {
     transform: translate(4%, -2%);
   }
+
   90% {
     transform: translate(-3%, 1%);
   }

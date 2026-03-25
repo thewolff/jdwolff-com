@@ -30,8 +30,8 @@ export default function Home() {
             </span>
             <h3 className={styles.workTitle}>Meridian</h3>
             <p className={styles.workDesc}>
-              Founding team member of Amazon's enterprise design system. Built
-              for scale, designed for humans.
+              Founding team member of Amazon&apos;s enterprise design system.
+              Built for scale, designed for humans.
             </p>
             <Link href="/work/meridian" className={`mono ${styles.workLink}`}>
               Read the story <span aria-hidden="true">→</span>
@@ -48,7 +48,7 @@ export default function Home() {
             </span>
             <h3 className={styles.workTitle}>Dig ital Trading Room</h3>
             <p className={styles.workDesc}>
-              Award-winning real-time interface for one of baseball's most
+              Award-winning real-time interface for one of baseball&apos;s most
               storied franchises.
             </p>
             <Link href="/work/dodgers" className={`mono ${styles.workLink}`}>
@@ -74,7 +74,7 @@ export default function Home() {
             <article className={styles.writingItem}>
               <h3 className={styles.writingTitle}>
                 <Link href="/writing/self-taught">
-                  I have no CS degree. Here's what I learned anyway.
+                  I have no CS degree. Here&apos;s what I learned anyway.
                 </Link>
               </h3>
               <p className={`muted ${styles.writingDesc}`}>
@@ -88,7 +88,7 @@ export default function Home() {
             <article className={styles.writingItem}>
               <h3 className={styles.writingTitle}>
                 <Link href="/writing/accessibility">
-                  Accessibility isn't a checklist. It's a disposition.
+                  Accessibility isn&apos;t a checklist. It&apos;s a disposition.
                 </Link>
               </h3>
               <p className={`muted ${styles.writingDesc}`}>
