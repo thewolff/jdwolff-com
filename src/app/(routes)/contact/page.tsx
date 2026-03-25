@@ -3,7 +3,11 @@ import styles from "./page.module.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact — Jo Wolff",
+  title: "Contact",
+  description: "Get in touch with Jo Wolff — frontend engineer.",
+  openGraph: {
+    images: [{ url: "/og?eyebrow=Contact&title=Say+hello." }],
+  },
 };
 
 export default function Contact() {

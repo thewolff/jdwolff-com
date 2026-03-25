@@ -3,7 +3,16 @@ import styles from "./page.module.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About — Jo Wolff",
+  title: "About",
+  description:
+    "Fifteen years in frontend. Formerly Amazon. English major first, engineer second.",
+  openGraph: {
+    images: [
+      {
+        url: "/og?eyebrow=About&title=English+major.+Self-taught+engineer.+Fifteen+years+in.",
+      },
+    ],
+  },
 };
 
 export default function About() {

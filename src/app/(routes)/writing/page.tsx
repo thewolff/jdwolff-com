@@ -4,7 +4,12 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Writing — Jo Wolff",
+  title: "Writing",
+  description:
+    "On frontend engineering, accessibility, design systems, and the strange experience of being an English major who writes code.",
+  openGraph: {
+    images: [{ url: "/og?eyebrow=Writing&title=Thinking+out+loud." }],
+  },
 };
 
 const posts = [

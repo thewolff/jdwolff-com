@@ -3,7 +3,16 @@ import styles from "./page.module.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Accessibility Statement — Jo Wolff",
+  title: "Accessibility Statement",
+  description:
+    "This site targets WCAG 2.1 AA. Read what's been done, what's in progress, and how to report issues.",
+  openGraph: {
+    images: [
+      {
+        url: "/og?eyebrow=Accessibility&title=This+site+is+built+to+be+usable+by+everyone.",
+      },
+    ],
+  },
 };
 
 export default function Accessibility() {

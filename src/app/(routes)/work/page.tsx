@@ -4,7 +4,12 @@ import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Work — Jo Wolff",
+  title: "Work",
+  description:
+    "Case studies from fifteen years in frontend — Amazon, AirBnB, LA Dodgers, and more.",
+  openGraph: {
+    images: [{ url: "/og?eyebrow=Work&title=Things+I've+built." }],
+  },
 };
 
 const projects = [
