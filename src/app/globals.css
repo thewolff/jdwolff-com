@@ -217,7 +217,7 @@ body::before {
   background-repeat: repeat;
   opacity: 0.04;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 99;
   animation: grain 8s steps(10) infinite;
 }
 
