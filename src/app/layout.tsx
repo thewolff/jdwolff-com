@@ -31,6 +31,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const viewport: Viewport = {
   viewportFit: "cover",
+  themeColor: "#0f0e0d",
 };
 
 export const metadata: Metadata = {
