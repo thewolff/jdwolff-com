@@ -19,6 +19,16 @@
      margin-bottom: var(--space-3);
    }
 
+   .article ul,
+   .article ol {
+     padding-left: var(--space-6);
+     margin: var(--space-6) 0;
+   }
+
+   .article li + li {
+     margin-top: var(--space-4);
+   }
+
    .article blockquote {
      border-left: 3px solid var(--color-accent);
      padding-left: var(--space-6);

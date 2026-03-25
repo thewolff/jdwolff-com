@@ -1,9 +1,9 @@
-import type { ComponentType } from "react";
 import PageLayout from "@/app/components/PageLayout/PageLayout";
 import styles from "./page.module.css";
 import { notFound } from "next/navigation";
 import Meridian from "./content/Meridian";
 import Dodgers from "./content/Dodgers";
+import OneChat from "./content/OneChat";
 
 const projects: Record<
   string,
@@ -15,6 +15,7 @@ const projects: Record<
     client: "LA Dodgers",
     component: Dodgers,
   },
+  onechat: { title: "OneChat", client: "Airbnb", component: OneChat },
 };
 
 export default async function WorkPost({

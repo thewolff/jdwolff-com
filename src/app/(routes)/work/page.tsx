@@ -14,6 +14,13 @@ export const metadata: Metadata = {
 
 const projects = [
   {
+    slug: "onechat",
+    client: "Airbnb",
+    category: "AI Tooling",
+    title: "OneChat",
+    desc: "Full frontend rebuild of Airbnb's internal AI chat — new architecture, design system migration, and an agents workflow from scratch.",
+  },
+  {
     slug: "meridian",
     client: "Amazon",
     category: "Design Systems",

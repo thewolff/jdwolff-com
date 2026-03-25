@@ -26,6 +26,25 @@ export default function Home() {
         <div className={styles.workGrid}>
           <article className={styles.workItem}>
             <span className={`mono muted ${styles.workMeta}`}>
+              Airbnb · AI Chat
+            </span>
+            <h3 className={styles.workTitle}>OneChat</h3>
+            <p className={styles.workDesc}>
+              Rebuilding Airbnb&apos;s employee-facing AI chat from the ground
+              up - new architecture, new features, and a design system migration
+              that finally made the app feel like it belonged.
+            </p>
+            <Link href="/work/onechat" className={`mono ${styles.workLink}`}>
+              Read the story <span aria-hidden="true">→</span>
+              <span className="visually-hidden">
+                {" "}
+                about Airbnb&apos;s OneChat
+              </span>
+            </Link>
+          </article>
+
+          <article className={styles.workItem}>
+            <span className={`mono muted ${styles.workMeta}`}>
               Amazon · Design Systems
             </span>
             <h3 className={styles.workTitle}>Meridian</h3>
@@ -55,7 +74,7 @@ export default function Home() {
               Read the story <span aria-hidden="true">→</span>
               <span className="visually-hidden">
                 {" "}
-                about the Dodgers Digital Trading Room
+                about the Dodgers Digital Trading Room.
               </span>
             </Link>
           </article>
