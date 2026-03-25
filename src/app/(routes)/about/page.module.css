@@ -1,0 +1,30 @@
+.article {
+  font-size: var(--text-lg);
+  line-height: 1.8;
+  max-width: 68ch;
+}
+
+.article p {
+  max-width: 68ch;
+}
+
+.article p + p {
+  margin-top: var(--space-6);
+}
+
+.article h2 {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  margin-top: var(--space-16);
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+}
+
+.article a {
+  color: var(--color-accent);
+}
+
+.article a:hover {
+  color: var(--color-accent-hover);
+}
