@@ -43,8 +43,8 @@ export function useFocusTrap(active: boolean) {
       }
     }
 
-    document.addEventListener("keydo wn", handleKeyDown);
-    return () => document.removeEventListener("ke ydown", handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [active]);
 
   return containerRef;

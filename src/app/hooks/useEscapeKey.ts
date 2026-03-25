@@ -5,7 +5,7 @@ export function useEscapeKey(callback: () => void) {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") callback();
     }
-    document.addEventListener("keydo wn", handleKeyDown);
-    return () => document.removeEventListener("ke ydown", handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, [callback]);
 }
