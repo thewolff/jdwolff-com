@@ -17,7 +17,7 @@ export default function Header() {
   const isMobile = useIsMobile();
   const isHidden = isMobile && !open;
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${open ? styles.headerOpen : ""}`}>
       <Link href="/" className={styles.logo} onClick={close}>
         <span className={styles.logoText}>Jo Wolff</span>
         <span className={`mono muted ${styles.logoSub}`}>

@@ -105,6 +105,11 @@
     padding: calc(env(safe-area-inset-top, 0px) + var(--space-4)) var(--space-6) var(--space-4);
   }
 
+  .headerOpen {
+    backdrop-filter: none;
+    background: var(--color-bg);
+  }
+
   .hamburger {
     display: flex;
   }
