@@ -41,6 +41,10 @@ export const ITEMS: Record<string, Item> = {
     name: "suspicious USB drive",
     desc: "A USB drive labeled 'DEFINITELY NOT GAMES.' It is definitely games. You can tell because someone has drawn a tiny Pac-Man on the label in Sharpie. Below it, in even smaller text: 'also: sudo su'.",
   },
+  cheese: {
+    name: "wedge of artisanal cheese",
+    desc: "A wedge of cheese. It is, relative to your current size, enormous — roughly the dimensions of an armchair. It smells expensive. It smells like someone in this office has opinions about cheese. That someone is a mouse.",
+  },
 };
 
 export function createRoomItems(): Record<string, string[]> {
@@ -63,5 +67,6 @@ export function createRoomItems(): Record<string, string[]> {
     prod_pipeline: [],
     the_void: [],
     vim_room: [],
+    mousehole: ["cheese"],
   };
 }

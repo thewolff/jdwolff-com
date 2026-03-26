@@ -295,10 +295,53 @@ export function createSecretCommands(ctx: GameContext) {
       say("  // theme() accepts: default, matrix, retro, midnight", T.hint);
       say('  // kitchen poster hides server_closet (need hack mode)', T.hint);
       say('  // desk has a secret exit after 20 moves (go "under")', T.hint);
+      say('  // minify() shrinks the player. check the corridor mousehole', T.hint);
       br();
       say("This code was not meant to be seen. And yet.", T.p);
       say("The developer who wrote it either forgot to remove it or wanted you to find it.", T.p);
       say("Both options are concerning.", T.hint);
+    },
+
+    minify() {
+      state.flags.minified = !state.flags.minified;
+      br();
+      if (state.flags.minified) {
+        say("$ npx terser --compress --mangle -- you.js", T.warn);
+        say("");
+        say("Minifying...", T.ok);
+        say("");
+        say("The world expands. Or rather: you contract.", T.p);
+        say(
+          "The desk legs are columns. The carpet fibers are a forest. A crumb on the floor is a boulder.",
+        );
+        say(
+          "You are approximately two centimeters tall. This is, by any metric, too small to be an employee.",
+        );
+        say(
+          "But you are still, technically, on the clock.",
+        );
+        br();
+        say(
+          "Small spaces that were previously inaccessible may now be within reach.",
+          T.hint,
+        );
+      } else {
+        say("$ npx terser --beautify -- you.js", T.ok);
+        say("");
+        say("Unminifying...", T.ok);
+        say("");
+        say(
+          "You expand. The world shrinks back to its normal proportions.",
+          T.p,
+        );
+        say(
+          "You are full-sized again. Your badge photo resembles you once more.",
+        );
+        say(
+          "The carpet fibers are just carpet fibers. The relief is considerable.",
+          T.hint,
+        );
+      }
     },
 
     query(sql: string) {

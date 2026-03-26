@@ -44,6 +44,12 @@ export function createRooms(ctx: GameContext): Record<string, Room> {
         }
         d +=
           "The kitchen is to the west. The code review room is to the north.";
+        d +=
+          " There is a small hole in the baseboard near the kitchen. It is, by any reasonable estimate, mouse-sized. You are not mouse-sized.";
+        if (state.flags.minified) {
+          d =
+            d.replace("You are not mouse-sized.", "You, however, are now mouse-sized. The hole looks like a doorway.");
+        }
         return d;
       },
       exits: () => ({
@@ -51,6 +57,7 @@ export function createRooms(ctx: GameContext): Record<string, Room> {
         east: "meeting",
         west: "kitchen",
         north: "code_review",
+        mousehole: state.flags.minified ? "mousehole" : null,
       }),
     },
 
@@ -340,6 +347,42 @@ export function createRooms(ctx: GameContext): Record<string, Room> {
         "~       type game.quit() if you're being honest\n" +
         "~\n~\n~",
       exits: () => ({}),
+    },
+
+    mousehole: {
+      name: "The Mousehole",
+      desc: () => {
+        let d =
+          "You are inside the wall. The ceiling is a floor joist. The floor is insulation foam. " +
+          "Everything is enormous — a paperclip on the ground looks like a piece of modern sculpture. " +
+          "There is a small living space here, assembled with the careful attention to detail of someone who " +
+          "has strong opinions about interior design but limited access to building materials. " +
+          "A bottle cap serves as a table. A cotton ball is a chair. It is, against all odds, cozy.\n\n";
+        d +=
+          "A mouse stands before you. He is wearing a small red hat and an expression of profound surprise. " +
+          "He is approximately your height, which is new for both of you. " +
+          "He has round ears — not unusually round, not legally distinctively round, just... round. " +
+          "He looks like no specific copyrighted mouse. His lawyers have confirmed this.";
+        if (roomItems.mousehole.includes("cheese")) {
+          d +=
+            "\n\nA wedge of artisanal cheese sits on the bottle-cap table. " +
+            "It is the centerpiece of the room. The mouse glances at it, then at you, with an expression that is " +
+            "difficult to read but easy to feel.";
+        }
+        return d;
+      },
+      exits: () => ({ out: "corridor" }),
+      onEnter: () => {
+        br();
+        say(
+          "Achievement unlocked: Minified (You Made Yourself Small Enough to Fit Inside a Wall)",
+          T.warn,
+        );
+        br();
+        say("The mouse looks up at you. He adjusts his hat.", T.p);
+        say('"You\'re... new," he says. His voice is high but dignified.', T.p);
+        say('"Most people are too big to visit. I respect the commitment."', T.p);
+      },
     },
 
     // ── Production Server Dimension ─────────────────────────────────────

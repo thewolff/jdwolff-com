@@ -26,6 +26,7 @@ export type Flags = {
   prod_entered_via: string;
   query_run: boolean;
   hotfix_applied: boolean;
+  minified: boolean;
 };
 
 export type GameState = {
@@ -89,5 +90,6 @@ export function defaultFlags(): Flags {
     prod_entered_via: "",
     query_run: false,
     hotfix_applied: false,
+    minified: false,
   };
 }

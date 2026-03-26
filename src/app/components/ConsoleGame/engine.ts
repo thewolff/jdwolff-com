@@ -224,6 +224,15 @@ export function createGame() {
         "Dave might have disagreed. Dave disagreed with a lot of things.",
         T.hint,
       );
+    } else if (state.room === "corridor" && d === "mousehole") {
+      say(
+        "You crouch down and peer into the mousehole. It is very small. You are very not small.",
+        T.err,
+      );
+      say(
+        "If only there were some way to reduce your overall footprint.",
+        T.hint,
+      );
     } else {
       say("You cannot go that way.", T.err);
     }
@@ -391,6 +400,56 @@ export function createGame() {
     );
     br();
     say("Thanks for playing. Type game.start() to go again.", T.hint);
+    br();
+  }
+
+  function minifiedEnding() {
+    state.flags.won = true;
+    br();
+    say("You hold out the cheese.", T.ok);
+    say("The mouse looks at it. He looks at you. His eyes are very round.");
+    say('"For... for me?" he says.');
+    say("");
+    say("You nod.");
+    say("");
+    say("The mouse takes the cheese. He holds it like it is the most important thing he has ever been given.");
+    say("Which, to be fair, it is. He lives in a wall.");
+    say("");
+    br();
+    say("He sets the cheese down carefully. He removes his hat. He clears his throat.", T.p);
+    say("And then, in a voice that is small but carries the weight of genuine feeling, he sings:", T.p);
+    say("");
+    say("  ♪  O traveler, who shrank yourself down,", T.item);
+    say("  ♪  Who left behind keyboard and crown,", T.item);
+    say("  ♪  Who crawled through the wall like a fool or a saint,", T.item);
+    say("  ♪  Who brought me this cheese without anger or complaint —", T.item);
+    say("  ♪  You are a hero. The biggest I've met.", T.item);
+    say("  ♪  (Which is ironic, given your current height.)  ♪", T.item);
+    say("");
+    say("He puts his hat back on. He takes a bite of cheese.", T.p);
+    say("It is, he confirms, very good cheese.", T.p);
+    br();
+    say("You stand there, two centimeters tall, in a mousehole, having been serenaded.", T.p);
+    say("You feel, against all reason, heroic.", T.p);
+    say("");
+    say("And then it hits you.", T.p);
+    say("");
+    say("You are two centimeters tall.", T.err);
+    say("The deploy button is four feet off the ground.", T.err);
+    say("You cannot reach it. You cannot reach anything.", T.err);
+    say("You are too small to deploy to production.", T.err);
+    say("You are too small to go home.", T.err);
+    say("You are too small to draw a bath. The bath would draw you.", T.err);
+    say("");
+    say("The mouse pats you on the shoulder.", T.p);
+    say('"You can stay here if you want," he says. "I have a spare cotton ball."', T.p);
+    br();
+    say("▓▓▓  THE MINIFIED ENDING  ▓▓▓", T.warn);
+    br();
+    say(`Completed in ${state.moves} moves. (At approximately 1/87th scale.)`, T.hint);
+    say("You saved a mouse. You lost a career. The cheese was worth it.", T.hint);
+    br();
+    say("Type game.start() to return to normal size and try again.", T.hint);
     br();
   }
 
@@ -840,6 +899,16 @@ export function createGame() {
           "README_SUDO.txt reads: 'For when Gerald won't merge your PR. Type game.sudo().'",
           T.hint,
         );
+      } else if (id === "cheese") {
+        if (state.room === "mousehole") {
+          minifiedEnding();
+          return;
+        }
+        say(
+          "You take a bite of cheese. It is very good. Unreasonably good for something you found in a wall.",
+          T.ok,
+        );
+        say("The mouse would probably like this back.", T.hint);
       } else {
         say(
           `You use the ${ITEMS[id].name}. The results are, at best, ambiguous.`,
@@ -873,6 +942,18 @@ export function createGame() {
         return;
       }
 
+      if (state.flags.minified && state.room === "deploy") {
+        say(
+          "You stand before the deploy button. It is four feet above you. You jump. You do not reach it.",
+          T.err,
+        );
+        say(
+          "You jump again. The button does not get closer. You are two centimeters tall. The button was not designed for this.",
+          T.err,
+        );
+        say("(You may need to game.minify() again to restore your original dimensions.)", T.hint);
+        return;
+      }
       if (state.room !== "deploy") {
         say(
           "You are not in the deploy chamber. You think about deploying from here. You remember the last time you deployed from somewhere you shouldn't have. You decide against it.",
@@ -905,7 +986,8 @@ export function createGame() {
         say("(Type game.deploy() again to check the status.)", T.hint);
       } else if (state.flags.deploy_attempts === 2) {
         say("Step 3 of 12: Type check... ✓", T.ok);
-        say("Step 4 of 12: Tests...");
+        say("Step 4 of 12: Minify... ✓", T.ok);
+        say("Step 5 of 12: Tests...");
         say("");
         say(
           "Still going. You get a coffee. You come back. Still going.",
@@ -914,7 +996,7 @@ export function createGame() {
         say("(One more time.)", T.hint);
       } else {
         br();
-        say("Steps 4–12: ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓", T.ok);
+        say("Steps 5–12: ✓ ✓ ✓ ✓ ✓ ✓ ✓ ✓", T.ok);
         say("");
         say("  ✅  Deployment successful.", T.win);
         say("  Production is live. All systems nominal.", T.win);
