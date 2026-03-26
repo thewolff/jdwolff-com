@@ -138,6 +138,13 @@ export function createRooms(ctx: GameContext): Record<string, Room> {
           d +=
             "The coffee pot is empty. You stare at it for a moment. It does not refill itself.";
         }
+        if (!state.flags.drawer_opened) {
+          d +=
+            " A junk drawer beside the fridge is sealed shut with packing tape and a sticky note that reads 'DO NOT OPEN — IT TOOK 3 PEOPLE TO CLOSE THIS.'";
+        } else {
+          d +=
+            " The junk drawer hangs open. Adapter cables spill onto the floor like the entrails of a decade of consumer electronics.";
+        }
         if (state.flags.hack_mode) {
           d +=
             " The poster is not flush with the wall. There is a gap behind it. There has always been a gap.";

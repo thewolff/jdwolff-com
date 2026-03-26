@@ -28,6 +28,14 @@ export type Flags = {
   hotfix_applied: boolean;
   minified: boolean;
   headphones_on: boolean;
+  turns_in_room: number;
+  last_tracked_room: string;
+  darkness: boolean;
+  darkness_turns: number;
+  flashlight_loaded: boolean;
+  flashlight_on: boolean;
+  drawer_examined: boolean;
+  drawer_opened: boolean;
 };
 
 export type GameState = {
@@ -93,5 +101,13 @@ export function defaultFlags(): Flags {
     hotfix_applied: false,
     minified: false,
     headphones_on: false,
+    turns_in_room: 0,
+    last_tracked_room: "",
+    darkness: false,
+    darkness_turns: 0,
+    flashlight_loaded: false,
+    flashlight_on: false,
+    drawer_examined: false,
+    drawer_opened: false,
   };
 }

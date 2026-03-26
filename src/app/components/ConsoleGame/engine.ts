@@ -136,16 +136,30 @@ export function createGame() {
     say(`${prefix}[ ${room.name} ]`, T.h);
     br();
 
-    let desc = room.desc();
-    if (state.flags.hack_mode) desc = injectGlitch(desc);
-    say(desc);
+    if (state.flags.darkness && !isGrueExempt()) {
+      if (state.flags.darkness_turns <= 2) {
+        say(
+          "It is pitch black. You can vaguely make out the shapes of the room around you. " +
+          "Furniture. Walls. The suggestion of exits. Everything else is memory and hope.",
+        );
+      } else {
+        say(
+          "It is pitch black. Something is in here with you. You can hear it breathing — a wet, rattling sound " +
+          "that suggests lungs designed by someone who did not have your best interests at heart.",
+        );
+      }
+    } else {
+      let desc = room.desc();
+      if (state.flags.hack_mode) desc = injectGlitch(desc);
+      say(desc);
 
-    const here = roomItems[state.room] ?? [];
-    if (here.length > 0) {
-      br();
-      here.forEach((id) => {
-        if (ITEMS[id]) say(`  • ${ITEMS[id].name}`, T.item);
-      });
+      const here = roomItems[state.room] ?? [];
+      if (here.length > 0) {
+        br();
+        here.forEach((id) => {
+          if (ITEMS[id]) say(`  • ${ITEMS[id].name}`, T.item);
+        });
+      }
     }
     const exits = Object.entries(room.exits())
       .filter(([, v]) => v !== null)
@@ -292,6 +306,131 @@ export function createGame() {
     }
   }
 
+  // ── Grue mechanics ────────────────────────────────────────────────
+
+  const GRUE_EXEMPT = ["parking", "home", "the_void", "vim_room", "mousehole"];
+
+  function isGrueExempt() {
+    return (
+      state.flags.flashlight_on ||
+      state.flags.won ||
+      GRUE_EXEMPT.includes(state.room) ||
+      state.room.startsWith("prod_")
+    );
+  }
+
+  function checkGrue() {
+    if (isGrueExempt()) return;
+
+    if (state.room !== state.flags.last_tracked_room) {
+      state.flags.last_tracked_room = state.room;
+      state.flags.turns_in_room = 0;
+    }
+
+    state.flags.turns_in_room++;
+
+    if (!state.flags.darkness && state.flags.turns_in_room >= 5) {
+      state.flags.darkness = true;
+      state.flags.darkness_turns = 0;
+      br();
+      say("The lights flicker. Then they go out.", T.err);
+      say(
+        "All of them. At once. The hum of fluorescent tubes — a sound you did not know you relied on — is gone.",
+        T.err,
+      );
+      br();
+      say("It is pitch black. You are likely to be eaten by a grue.", T.warn);
+      return;
+    }
+
+    if (state.flags.darkness) {
+      state.flags.darkness_turns++;
+      if (state.flags.darkness_turns >= 5) {
+        grueEnding();
+        return;
+      }
+      br();
+      if (state.flags.darkness_turns === 1) {
+        say(
+          "Your eyes are adapting to the inky darkness. You can vaguely make out the shapes of everything around you.",
+          T.err,
+        );
+        say(
+          "Something moves at the edge of your vision. It is large. It gurgles.",
+          T.err,
+        );
+        if (state.inventory.includes("flashlight")) {
+          say("You have a flashlight. Now would be the time.", T.hint);
+        }
+      } else if (state.flags.darkness_turns === 2) {
+        say(
+          "The gurgling is closer now. You can smell it — a wet, organic reek, like something that lives where light does not reach.",
+          T.err,
+        );
+        say(
+          "Something brushes against your leg. It is not furniture.",
+          T.err,
+        );
+      } else if (state.flags.darkness_turns === 3) {
+        say(
+          "You catch a glimpse: sickly glowing fur. A fish-mouthed face. Fangs that do not belong in an office building.",
+          T.err,
+        );
+        say("It slavers. It is very close.", T.err);
+        if (state.inventory.includes("flashlight")) {
+          say("You have a flashlight. USE IT.", T.warn);
+        }
+      } else if (state.flags.darkness_turns === 4) {
+        say(
+          "It is right behind you. You can feel its breath on the back of your neck.",
+          T.err,
+        );
+        say(
+          "It is warm and wet and smells like something that has eaten before and found the experience acceptable.",
+          T.err,
+        );
+        say("This is your last chance.", T.warn);
+      }
+    }
+  }
+
+  function grueEnding() {
+    state.flags.won = true;
+    br();
+    say("Oh. There it is.", T.err);
+    say("");
+    say(
+      "It steps out of the darkness on claws that click against the floor like someone typing very fast on a very bad keyboard.",
+      T.p,
+    );
+    say(
+      "Sickly glowing fur. A fish-mouthed face split wide open. Fangs arranged in rows with the casual cruelty of a data structure optimized for pain.",
+      T.p,
+    );
+    say(
+      "It slavers. It gurgles. It looks at you with an expression that is not hunger, exactly, but adjacent to it.",
+      T.p,
+    );
+    say("The kind of expression that suggests it has eaten before and found the experience acceptable.", T.p);
+    say("");
+    say("You have been eaten by a grue.", T.err);
+    br();
+    say("▓▓▓  THE GRUE ENDING  ▓▓▓", T.warn);
+    br();
+    say(`Devoured in ${state.moves} moves.`, T.hint);
+    say(
+      "The office will file your disappearance under 'attrition.' Your desk will be reassigned by Monday.",
+      T.hint,
+    );
+    say(
+      "There was a flashlight on your desk. There were batteries in the kitchen. But you are past tense now.",
+      T.hint,
+    );
+    br();
+    say("Type game.start() to try again. Bring a light this time.", T.hint);
+    br();
+  }
+
   // ── Win sequences ──────────────────────────────────────────────────
 
   function normalWin() {
@@ -362,6 +501,12 @@ export function createGame() {
     if (state.flags.ssh_visited) {
       say(
         "You SSH'd into production. On a Thursday. HR has been notified.",
+        T.hint,
+      );
+    }
+    if (state.flags.flashlight_on) {
+      say(
+        "You brought a flashlight. The grue went hungry tonight. It will not forget this.",
         T.hint,
       );
     }
@@ -521,6 +666,7 @@ export function createGame() {
     look() {
       state.moves++;
       look();
+      checkGrue();
     },
 
     go(dir: string) {
@@ -560,6 +706,7 @@ export function createGame() {
           const next = ctx.ROOMS[target];
           if (next?.onEnter) next.onEnter();
           look();
+          checkGrue();
           return;
         }
         say(
@@ -579,6 +726,7 @@ export function createGame() {
           `You consider going ${dir}. There is nothing there. This is not unusual.`,
           T.err,
         );
+        checkGrue();
         return;
       }
 
@@ -587,6 +735,7 @@ export function createGame() {
       if (dest === null) {
         if (state.flags.sudo_mode) {
           handleSudoBypass(d);
+          checkGrue();
           return;
         }
         if (state.flags.noclip_mode) {
@@ -602,6 +751,7 @@ export function createGame() {
           return;
         }
         handleBlockedExit(d);
+        checkGrue();
         return;
       }
 
@@ -620,6 +770,7 @@ export function createGame() {
       const next = ctx.ROOMS[dest];
       if (next?.onEnter) next.onEnter();
       look();
+      checkGrue();
     },
 
     n() { this.go("north"); },
@@ -654,6 +805,7 @@ export function createGame() {
       state.inventory.push(id);
       say(`Taken: ${ITEMS[id].name}.`, T.ok);
       state.moves++;
+      checkGrue();
     },
 
     drop(itemName: string) {
@@ -670,9 +822,38 @@ export function createGame() {
       roomItems[state.room].push(id);
       say(`You set down the ${ITEMS[id].name}.`, T.ok);
       state.moves++;
+      checkGrue();
     },
 
     examine(itemName: string) {
+      const n = itemName.toLowerCase().trim();
+      const drawerNames = ["drawer", "junk drawer", "junk_drawer", "tape", "packing tape", "junk"];
+      if (drawerNames.includes(n) && state.room === "kitchen") {
+        state.moves++;
+        if (state.flags.drawer_opened) {
+          say(
+            "The drawer is open. Its contents — a decade of adapters, cables, and corporate regret — are already on the floor.",
+          );
+        } else {
+          state.flags.drawer_examined = true;
+          say(
+            "You peer through the gap between the drawer and the frame. Inside: a tangle of FireWire cables, " +
+            "three Mini-DIN adapters, a SCART connector that has no business being here, and — beneath it all — " +
+            "a pair of AA batteries.",
+          );
+          say(
+            "The drawer is sealed with packing tape. Industrial strength. It will not yield to pulling.",
+            T.hint,
+          );
+          say(
+            "You would need something with a sharp, flat edge. Like, hypothetically, a laminated ID card.",
+            T.hint,
+          );
+        }
+        checkGrue();
+        return;
+      }
+
       const id =
         findItem(itemName, state.inventory) ??
         findItem(itemName, roomItems[state.room] ?? []) ??
@@ -697,8 +878,15 @@ export function createGame() {
           "  // xyzzy <- Dave's favorite. He said it was 'an old magic word.'";
       }
 
+      if (id === "flashlight" && state.flags.flashlight_loaded) {
+        desc =
+          "A flashlight. It now contains batteries. The weight feels correct — purposeful, even. " +
+          "A small toggle switch on the side reads OFF. It is ready.";
+      }
+
       say(desc);
       state.moves++;
+      checkGrue();
     },
 
     use(itemName: string) {
@@ -796,11 +984,97 @@ export function createGame() {
             T.err,
           );
         }
+      } else if (id === "flashlight") {
+        if (!state.flags.flashlight_loaded) {
+          say(
+            "You flick the switch. Nothing happens. You flick it again. Nothing continues to happen.",
+            T.err,
+          );
+          say(
+            "The flashlight is empty. It needs batteries. This is, in retrospect, predictable.",
+            T.hint,
+          );
+        } else if (state.flags.flashlight_on) {
+          say(
+            "The flashlight is already on. The beam is steady. You are safe. Safer, at least.",
+            T.ok,
+          );
+        } else {
+          state.flags.flashlight_on = true;
+          br();
+          say("You flick the switch.", T.ok);
+          say("Light. Actual, honest, battery-powered light.");
+          if (state.flags.darkness) {
+            say("");
+            say(
+              "The beam cuts through the darkness like a clean line of code through a legacy codebase.",
+              T.ok,
+            );
+            say(
+              "Something recoils. You catch a glimpse — sickly glowing fur, a fish-mouthed face twisting away, " +
+              "claws scrabbling against the floor as it retreats into the space between walls.",
+            );
+            say(
+              "It gurgles once, indignant, and is gone.",
+            );
+            br();
+            say("The lights do not come back on. But the flashlight is enough.", T.ok);
+            say("The grue will not return while you carry this light.", T.hint);
+            state.flags.darkness = false;
+            state.flags.darkness_turns = 0;
+          } else {
+            say(
+              "The beam illuminates the room in a cone of competence. Nothing lurks. For now.",
+              T.ok,
+            );
+            say("The grue will think twice.", T.hint);
+          }
+        }
+      } else if (id === "batteries") {
+        if (state.inventory.includes("flashlight")) {
+          br();
+          say("You open the flashlight's battery compartment.", T.ok);
+          say(
+            "You insert the batteries. They fit. The flashlight gains weight — a small, purposeful weight, " +
+            "like a tool that has remembered what it is for.",
+          );
+          say("The flashlight is loaded. Type game.use(\"flashlight\") to turn it on.", T.hint);
+          state.flags.flashlight_loaded = true;
+          state.inventory = state.inventory.filter((i) => i !== "batteries");
+        } else {
+          say(
+            "You hold the batteries. They are batteries. Without something to put them in, they are just small cylinders of stored potential.",
+            T.err,
+          );
+          say("You need a flashlight.", T.hint);
+        }
       } else if (id === "badge") {
-        say(
-          "You hold up the badge. The photo version of you stares back: alert, optimistic, unaware of what Thursday at 4:47pm feels like.",
-          T.p,
-        );
+        if (
+          state.room === "kitchen" &&
+          state.flags.drawer_examined &&
+          !state.flags.drawer_opened
+        ) {
+          br();
+          say(
+            "You slide the edge of your employee badge along the packing tape. It parts cleanly.",
+            T.ok,
+          );
+          say(
+            "The drawer explodes open, releasing a cascade of adapter cables, three phone chargers for phones " +
+            "that no longer exist, and exactly one pair of AA batteries.",
+          );
+          say(
+            "The batteries roll to a stop on the counter. They are yours if you want them.",
+          );
+          state.flags.drawer_opened = true;
+          if (!roomItems.kitchen) roomItems.kitchen = [];
+          roomItems.kitchen.push("batteries");
+        } else {
+          say(
+            "You hold up the badge. The photo version of you stares back: alert, optimistic, unaware of what Thursday at 4:47pm feels like.",
+            T.p,
+          );
+        }
       } else if (id === "the_answer") {
         say(
           "You read the printout again. const THE_ANSWER = 42. You turn it over. The back is blank.",
@@ -916,6 +1190,7 @@ export function createGame() {
           T.err,
         );
       }
+      checkGrue();
     },
 
     deploy() {
@@ -971,6 +1246,7 @@ export function createGame() {
       }
 
       state.flags.deploy_attempts++;
+      state.moves++;
 
       if (state.flags.deploy_attempts === 1) {
         br();
@@ -1012,6 +1288,7 @@ export function createGame() {
         state.flags.deployed = true;
         say("The parking lot is now accessible to the north.", T.hint);
       }
+      checkGrue();
     },
 
     inventory() {

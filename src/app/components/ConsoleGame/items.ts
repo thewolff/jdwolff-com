@@ -45,11 +45,19 @@ export const ITEMS: Record<string, Item> = {
     name: "wedge of artisanal cheese",
     desc: "A wedge of cheese. It is, relative to your current size, enormous — roughly the dimensions of an armchair. It smells expensive. It smells like someone in this office has opinions about cheese. That someone is a mouse.",
   },
+  flashlight: {
+    name: "flashlight",
+    desc: "A flashlight. It is the kind of flashlight that exists in every office emergency kit, untouched since the day the kit was purchased. It feels light. Suspiciously light. There are no batteries inside.",
+  },
+  batteries: {
+    name: "AA batteries",
+    desc: "Two AA batteries. They expired in 2021 but will almost certainly work. Batteries do not respect expiration dates. This is one of the few reassuring constants in the universe.",
+  },
 };
 
 export function createRoomItems(): Record<string, string[]> {
   return {
-    desk: ["headphones", "badge"],
+    desk: ["headphones", "badge", "flashlight"],
     corridor: [],
     meeting: [],
     kitchen: ["coffee"],

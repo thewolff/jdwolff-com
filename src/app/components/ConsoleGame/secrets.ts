@@ -296,6 +296,8 @@ export function createSecretCommands(ctx: GameContext) {
       say('  // kitchen poster hides server_closet (need hack mode)', T.hint);
       say('  // desk has a secret exit after 20 moves (go "under")', T.hint);
       say('  // minify() shrinks the player. check the corridor mousehole', T.hint);
+      say('  // WARNING: grue spawns after 5 idle turns. flashlight + batteries = survival', T.hint);
+      say('  // batteries are in the kitchen junk drawer. badge opens it', T.hint);
       br();
       say("This code was not meant to be seen. And yet.", T.p);
       say("The developer who wrote it either forgot to remove it or wanted you to find it.", T.p);
