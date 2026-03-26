@@ -70,9 +70,11 @@ export function createRooms(ctx: GameContext): Record<string, Room> {
             "as all available clocks appear to have entered a state of passive protest. " +
             'Someone is currently explaining something using the phrase "circle back" for the fourth time. ' +
             "The exit is to the west. You are having genuine difficulty walking toward it. " +
-            (state.inventory.includes("headphones")
-              ? "Your noise-canceling headphones are in your inventory. This seems relevant. Possibly urgent."
-              : "If only you had something that could make this room disappear.")
+            (state.flags.headphones_on
+              ? "Your noise-canceling headphones are on. The meeting is a silent film. You could leave at any time."
+              : state.inventory.includes("headphones")
+                ? "Your noise-canceling headphones are in your inventory. This seems relevant. Possibly urgent."
+                : "If only you had something that could make this room disappear.")
           );
         }
         return (
@@ -85,6 +87,22 @@ export function createRooms(ctx: GameContext): Record<string, Room> {
         west: state.flags.meeting_escaped ? "corridor" : null,
       }),
       onEnter: () => {
+        if (state.flags.headphones_on && !state.flags.meeting_escaped) {
+          state.flags.meeting_escaped = true;
+          br();
+          say("You step inside.", T.warn);
+          say(
+            'Someone immediately says "oh good, you\'re here — we need your input on a few things."',
+          );
+          say(
+            "The headphones are already on. You hear nothing. You see mouths moving with the urgency of people who believe they are being heard.",
+          );
+          say(
+            "You nod once, turn around, and walk out. Nobody stops you. Nobody can.",
+          );
+          state.room = "corridor";
+          return;
+        }
         if (!state.flags.meeting_entered) {
           state.flags.meeting_entered = true;
           br();

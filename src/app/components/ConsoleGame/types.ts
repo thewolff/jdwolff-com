@@ -27,6 +27,7 @@ export type Flags = {
   query_run: boolean;
   hotfix_applied: boolean;
   minified: boolean;
+  headphones_on: boolean;
 };
 
 export type GameState = {
@@ -91,5 +92,6 @@ export function defaultFlags(): Flags {
     query_run: false,
     hotfix_applied: false,
     minified: false,
+    headphones_on: false,
   };
 }

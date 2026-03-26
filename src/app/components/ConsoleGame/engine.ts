@@ -710,6 +710,7 @@ export function createGame() {
       state.moves++;
 
       if (id === "headphones") {
+        state.flags.headphones_on = true;
         if (state.room === "meeting" && !state.flags.meeting_escaped) {
           br();
           say("You put on the headphones.", T.ok);
