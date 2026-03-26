@@ -1,5 +1,13 @@
 const FONT = '"JetBrains Mono",monospace';
 
+function isDarkMode(): boolean {
+  try {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  } catch {
+    return true;
+  }
+}
+
 export const THEMES: Record<string, Record<string, string>> = {
   default: {
     h: `color:#9b7fc4;font-weight:bold;font-size:14px;font-family:${FONT}`,
@@ -47,16 +55,43 @@ export const THEMES: Record<string, Record<string, string>> = {
   },
 };
 
+const DARK_OVERRIDES: Record<string, Record<string, string>> = {
+  default: {
+    hint: `color:#8e8e8e;font-size:11px;font-family:${FONT}`,
+    div: `color:#555;font-size:12px;font-family:${FONT}`,
+  },
+  matrix: {
+    hint: `color:#33aa55;font-size:11px;font-family:${FONT}`,
+    div: `color:#1a5530;font-size:12px;font-family:${FONT}`,
+  },
+  retro: {
+    hint: `color:#aa8833;font-size:11px;font-family:${FONT}`,
+    div: `color:#665522;font-size:12px;font-family:${FONT}`,
+  },
+  midnight: {
+    hint: `color:#4a9aaa;font-size:11px;font-family:${FONT}`,
+    div: `color:#2a5a6a;font-size:12px;font-family:${FONT}`,
+  },
+};
+
+function resolveTheme(name: string): Record<string, string> {
+  const base = THEMES[name] ?? THEMES.default;
+  if (isDarkMode() && DARK_OVERRIDES[name]) {
+    return { ...base, ...DARK_OVERRIDES[name] };
+  }
+  return { ...base };
+}
+
 export function createOutput() {
-  const T: Record<string, string> = { ...THEMES.default };
+  const T: Record<string, string> = resolveTheme("default");
 
   const say = (msg: string, style = T.p) => console.log(`%c${msg}`, style);
   const br = () =>
     console.log("%c────────────────────────────────────────", T.div);
 
   const setTheme = (name: string) => {
-    const theme = THEMES[name];
-    if (theme) Object.assign(T, theme);
+    const theme = resolveTheme(name);
+    Object.assign(T, theme);
   };
 
   return { T, say, br, setTheme };
