@@ -7,5 +7,9 @@ export const siteConfig = {
   url: "https://jdwolff.com",
   email: "thewolff@jdwolff.com",
   linkedin: "https://www.linkedin.com/in/josephdwolff/",
-  twitterHandle: undefined, // add if you have one
+  github: "https://github.com/thewolff",
+  bluesky: "https://bsky.app/profile/thewolff-frontend.bsky.social",
+  twitter: "https://x.com/thewolff_FEE",
+  twitterHandle: "@thewolff_FEE",
+  substack: "https://substack.com/@thewolfffrontend",
 } as const;

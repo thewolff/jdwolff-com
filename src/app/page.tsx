@@ -13,6 +13,9 @@ const personSchema = {
   sameAs: [
     "https://www.linkedin.com/in/josephdwolff/",
     "https://bsky.app/profile/thewolff-frontend.bsky.social",
+    "https://x.com/thewolff_FEE",
+    "https://github.com/thewolff",
+    "https://substack.com/@thewolfffrontend",
   ],
   knowsAbout: [
     "Frontend Engineering",

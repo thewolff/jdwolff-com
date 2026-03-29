@@ -31,4 +31,7 @@ Jo Wolff is a lead frontend software engineer based in Seattle. Self-taught, wit
 
 - Email: thewolff@jdwolff.com
 - LinkedIn: https://www.linkedin.com/in/josephdwolff/
+- GitHub: https://github.com/thewolff
 - Bluesky: https://bsky.app/profile/thewolff-frontend.bsky.social
+- X / Twitter: https://x.com/thewolff_FEE
+- Substack: https://substack.com/@thewolfffrontend
