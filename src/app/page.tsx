@@ -9,7 +9,7 @@ const personSchema = {
   url: "https://jdwolff.com",
   jobTitle: "Frontend Engineer",
   description:
-    "Frontend engineer with fifteen years in the craft. Specialist in design systems, accessibility, and React. Formerly Amazon and Airbnb.",
+    "Frontend engineer with fifteen years in the craft. Specialist in design systems, accessibility, and React. Formerly Amazon and Airbnb. They/them.",
   sameAs: [
     "https://www.linkedin.com/in/josephdwolff/",
     "https://bsky.app/profile/thewolff-frontend.bsky.social",

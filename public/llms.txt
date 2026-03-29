@@ -4,7 +4,7 @@
 
 ## About
 
-Jo Wolff is a lead frontend software engineer based in Seattle. Self-taught, with a background in English and creative writing. Cares deeply about accessibility as a justice issue, not just a compliance checkbox. Winner of a CLIO Award in 2015 for the LA Dodgers Digital Trading Room.
+Jo Wolff is a lead frontend software engineer based in Seattle. Self-taught, with a background in English and creative writing. They care deeply about accessibility as a justice issue, not just a compliance checkbox. Winner of a CLIO Award in 2015 for the LA Dodgers Digital Trading Room.
 
 ## Pages
 
