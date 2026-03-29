@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# jdwolff.com
 
-## Getting Started
+My personal site. Built because a Google Doc with links isn't a portfolio.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, React 19, React Compiler)
+- **TypeScript** — strict mode, no `any`, no excuses
+- **CSS Modules** — no Tailwind, no runtime CSS-in-JS, just the platform
+- **Stylelint + ESLint** — enforced via GitHub Actions
+- **Vercel** — deployed automatically on push to `main`
+
+## Features
+
+- Fully static where possible, dynamic where it has to be
+- Dynamic OG image generation (`/og`) — no pre-generated PNGs
+- PWA manifest + theme color
+- WCAG 2.1 AA target — accessibility is a design constraint, not a checkbox
+- JSON-LD structured data (Person + Article schemas)
+- `llms.txt` — because AI crawlers deserve good data too
+- A console game. You'll find it.
+
+## Local Dev
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # starts on :3001
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Lint:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run lint       # ESLint
+npx stylelint "**/*.css"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/app/
+├── (routes)/          # Page routes — about, work, writing, contact, accessibility
+│   ├── work/[slug]/   # Case studies — Meridian, OneChat, Dodgers
+│   └── writing/[slug] # Essays
+├── components/        # Shared UI — Header, Footer, PageLayout, JsonLd, etc.
+├── lib/               # siteConfig and other shared constants
+├── og/                # Edge runtime OG image generator
+├── sitemap.ts         # Sitemap covering all static + dynamic routes
+├── robots.ts          # robots.txt
+└── manifest.ts        # PWA manifest
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Writing
 
-## Deploy on Vercel
+Three essays live on the site:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **[I have no CS degree. Here's what I learned anyway.](https://jdwolff.com/writing/self-taught)** — on being self-taught and why the English major background wasn't a bug
+- **[Accessibility isn't a checklist. It's a disposition.](https://jdwolff.com/writing/accessibility)** — fifteen years of building for everyone
+- **[Design systems are a trust problem, not a component problem.](https://jdwolff.com/writing/design-systems)** — the hard part is human
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Work
+
+- **[Meridian](https://jdwolff.com/work/meridian)** — Amazon's enterprise design system. Founding team.
+- **[OneChat](https://jdwolff.com/work/onechat)** — Airbnb's internal AI chat, rebuilt from scratch.
+- **[Digital Trading Room](https://jdwolff.com/work/dodgers)** — LA Dodgers. CLIO Award, 2015.
+
+## Find Me
+
+[jdwolff.com](https://jdwolff.com) · [LinkedIn](https://www.linkedin.com/in/josephdwolff/) · [Bluesky](https://bsky.app/profile/thewolff-frontend.bsky.social) · [X](https://x.com/thewolff_FEE) · [Substack](https://substack.com/@thewolfffrontend)
