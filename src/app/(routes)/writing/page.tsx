@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Writing",
   description:
     "On frontend engineering, accessibility, design systems, and the strange experience of being an English major who writes code.",
+  alternates: {
+    canonical: "https://jdwolff.com/writing",
+  },
   openGraph: {
     images: [{ url: "/og?eyebrow=Writing&title=Thinking+out+loud." }],
   },

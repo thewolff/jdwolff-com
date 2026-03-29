@@ -1,0 +1,34 @@
+# Jo Wolff — Frontend Engineer
+
+> Personal portfolio and writing site for Jo Wolff, a frontend engineer with fifteen years in the craft. Specialist in design systems, web accessibility (WCAG), and React/TypeScript. Formerly Amazon (founding member of the Meridian design system team) and Airbnb.
+
+## About
+
+Jo Wolff is a lead frontend software engineer based in Seattle. Self-taught, with a background in English and creative writing. Cares deeply about accessibility as a justice issue, not just a compliance checkbox. Winner of a CLIO Award in 2015 for the LA Dodgers Digital Trading Room.
+
+## Pages
+
+- [Home](https://jdwolff.com): Introduction and selected work
+- [Work](https://jdwolff.com/work): Case studies — Amazon Meridian, Airbnb OneChat, LA Dodgers Digital Trading Room
+- [Writing](https://jdwolff.com/writing): Essays on frontend engineering, accessibility, and design systems
+- [About](https://jdwolff.com/about): Background and origin story
+- [Accessibility Statement](https://jdwolff.com/accessibility): WCAG 2.1 AA conformance statement
+- [Contact](https://jdwolff.com/contact): Email and LinkedIn
+
+## Writing
+
+- [I have no CS degree. Here's what I learned anyway.](https://jdwolff.com/writing/self-taught): On being self-taught, imposter syndrome, and the advantage of an English major background.
+- [Accessibility isn't a checklist. It's a disposition.](https://jdwolff.com/writing/accessibility): What fifteen years of building for everyone taught me about what software is actually for.
+- [Design systems are a trust problem, not a component problem.](https://jdwolff.com/writing/design-systems): Why the hard part of design systems is human, not technical.
+
+## Work
+
+- [Meridian (Amazon)](https://jdwolff.com/work/meridian): Founding team member of Amazon's enterprise design system.
+- [OneChat (Airbnb)](https://jdwolff.com/work/onechat): Full frontend rebuild of Airbnb's internal AI chat tool.
+- [Digital Trading Room (LA Dodgers)](https://jdwolff.com/work/dodgers): Award-winning real-time interface. CLIO Award 2015.
+
+## Contact
+
+- Email: thewolff@jdwolff.com
+- LinkedIn: https://www.linkedin.com/in/josephdwolff/
+- Bluesky: https://bsky.app/profile/thewolff-frontend.bsky.social

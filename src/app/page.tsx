@@ -1,9 +1,37 @@
 import styles from "./page.module.css";
 import Link from "next/link";
+import JsonLd from "./components/JsonLd/JsonLd";
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Jo Wolff",
+  url: "https://jdwolff.com",
+  jobTitle: "Frontend Engineer",
+  description:
+    "Frontend engineer with fifteen years in the craft. Specialist in design systems, accessibility, and React. Formerly Amazon and Airbnb.",
+  sameAs: [
+    "https://www.linkedin.com/in/josephdwolff/",
+    "https://bsky.app/profile/thewolff-frontend.bsky.social",
+  ],
+  knowsAbout: [
+    "Frontend Engineering",
+    "Design Systems",
+    "Web Accessibility",
+    "React",
+    "TypeScript",
+    "WCAG",
+  ],
+  alumniOf: [
+    { "@type": "Organization", name: "Amazon" },
+    { "@type": "Organization", name: "Airbnb" },
+  ],
+};
 
 export default function Home() {
   return (
     <main id="main-content" className={styles.main}>
+      <JsonLd data={personSchema} />
       <section className={styles.hero} aria-labelledby="hero-heading">
         <p className={`mono muted ${styles.eyebrow}`}>
           Jo Wolff - Frontend Engineer
@@ -65,7 +93,7 @@ export default function Home() {
             <span className={`mono muted ${styles.workMeta}`}>
               LA Dodgers · 2015 · CLIO Award
             </span>
-            <h3 className={styles.workTitle}>Dig ital Trading Room</h3>
+            <h3 className={styles.workTitle}>Digital Trading Room</h3>
             <p className={styles.workDesc}>
               Award-winning real-time interface for one of baseball&apos;s most
               storied franchises.
@@ -81,7 +109,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.section} aria-labelledby="writing-heading ">
+      <section className={styles.section} aria-labelledby="writing-heading">
         <h2
           id="writing-heading"
           className={`mono muted ${styles.sectionLabel}`}

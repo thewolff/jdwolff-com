@@ -5,6 +5,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Contact",
   description: "Get in touch with Jo Wolff — frontend engineer.",
+  alternates: {
+    canonical: "https://jdwolff.com/contact",
+  },
   openGraph: {
     images: [{ url: "/og?eyebrow=Contact&title=Say+hello." }],
   },

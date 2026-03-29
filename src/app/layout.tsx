@@ -41,6 +41,22 @@ export const metadata: Metadata = {
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  keywords: [
+    "frontend engineer",
+    "design systems",
+    "accessibility",
+    "React",
+    "TypeScript",
+    "web accessibility",
+    "WCAG",
+    "Jo Wolff",
+    "Joseph Wolff",
+  ],
+  authors: [{ name: "Jo Wolff", url: siteConfig.url }],
+  creator: "Jo Wolff",
+  alternates: {
+    canonical: siteConfig.url,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -62,10 +78,17 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     images: ["/og"],
+    creator: "@thewolff",
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   appleWebApp: {
     capable: true,

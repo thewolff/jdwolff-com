@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Accessibility Statement",
   description:
     "This site targets WCAG 2.1 AA. Read what's been done, what's in progress, and how to report issues.",
+  alternates: {
+    canonical: "https://jdwolff.com/accessibility",
+  },
   openGraph: {
     images: [
       {

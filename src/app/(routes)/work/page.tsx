@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: "Work",
   description:
     "Case studies from fifteen years in frontend — Amazon, AirBnB, LA Dodgers, and more.",
+  alternates: {
+    canonical: "https://jdwolff.com/work",
+  },
   openGraph: {
     images: [{ url: "/og?eyebrow=Work&title=Things+I've+built." }],
   },
