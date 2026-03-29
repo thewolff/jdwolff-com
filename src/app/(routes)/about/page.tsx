@@ -106,6 +106,10 @@ export default function About() {
           most interesting places to build things, fifteen years in.
         </p>
         <p>
+          Also — if you&apos;re the kind of person who opens DevTools before
+          you read the copy, there might be something here for you.
+        </p>
+        <p>
           If any of that sounds like someone you want on your team —&nbsp;
           <a href="/contact">let&apos;s talk</a>.
         </p>
