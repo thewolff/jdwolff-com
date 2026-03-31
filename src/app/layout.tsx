@@ -10,7 +10,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import "./globals.css";
 import ConsoleGame from "@/app/components/ConsoleGame/ConsoleGame";
-import GoogleAnalytics from "@/app/components/GoogleAnalytics/GoogleAnalytics";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
