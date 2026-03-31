@@ -10,6 +10,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import "./globals.css";
 import ConsoleGame from "@/app/components/ConsoleGame/ConsoleGame";
+import GoogleAnalytics from "@/app/components/GoogleAnalytics/GoogleAnalytics";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -117,6 +118,9 @@ export default function RootLayout({
         {children}
         <Footer />
         <ConsoleGame />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
       </body>
     </html>
   );
