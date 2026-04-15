@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import JsonLd from "@/app/components/JsonLd/JsonLd";
 import SelfTaught from "./content/SelfTaught";
+import AccessibilityTheatre from "./content/AccessibilityTheatre";
+import DesignSystemsTension from "./content/DesignSystemsTension";
 
 const posts: Record<
   string,
@@ -27,14 +29,14 @@ const posts: Record<
     desc: "What fifteen years of building for everyone taught me about what software is actually for.",
     eyebrow: "Writing",
     datePublished: "2026-03-25",
-    component: () => null,
+    component: AccessibilityTheatre,
   },
   "design-systems": {
     title: "Design systems are a trust problem, not a component problem.",
     desc: "The technical part is the easy part. The hard part is getting fifty teams to believe in the same foundation.",
     eyebrow: "Writing",
     datePublished: "2026-03-25",
-    component: () => null,
+    component: DesignSystemsTension,
   },
 };
 

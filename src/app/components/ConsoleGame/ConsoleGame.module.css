@@ -1,0 +1,17 @@
+.terminal {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.logArea {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--color-warn);
+  transition: all 0.3s ease;
+}
+
+.gameContainer {
+  /* hidden but keeps the engine context if needed */
+  display: none;
+}

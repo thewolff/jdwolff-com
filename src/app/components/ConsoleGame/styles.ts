@@ -85,7 +85,13 @@ function resolveTheme(name: string): Record<string, string> {
 export function createOutput() {
   const T: Record<string, string> = resolveTheme("default");
 
-  const say = (msg: string, style = T.p) => console.log(`%c${msg}`, style);
+  const say = (msg: string, style = T.p) => {
+    console.log(`%c${msg}`, style);
+    const logEl = document.getElementById("game-log");
+    if (logEl) {
+      logEl.innerText = msg;
+    }
+  };
   const br = () =>
     console.log("%c────────────────────────────────────────", T.div);
 

@@ -3,16 +3,16 @@
       ================================ ============ */
 :root {
   /* Colors */
-  --color-bg: #0f0e0d;
-  --color-bg-elevated: #1a1815;
-  --color-bg-subtle: #242220;
+  --color-bg: #121110;
+  --color-bg-elevated: #1c1a18;
+  --color-bg-subtle: #262422;
   --color-text: #e8e4de;
   --color-text-muted: #9e9890;
   --color-text-faint: #828070;
-  --color-accent: #9b7fc4;
-  --color-accent-hover: #c4a8e8;
-  --color-accent-dim: #3d2f52;
-  --color-border: #2e2b27;
+  --color-accent: #ff8c42;
+  --color-accent-hover: #ffad73;
+  --color-accent-dim: #5c351f;
+  --color-border: #33312e;
 
   /* Typography */
   --font-serif: "Playfair Display", georgia, serif;
@@ -150,8 +150,8 @@ p {
 a {
   color: var(--color-accent);
   text-decoration: underline;
-  text-decoration-color: var(--color-accent-dim);
-  text-underline-offset: 3px;
+  text-decoration-color: var(--color-border);
+  text-underline-offset: 4px;
   transition:
     color var(--transition-fast),
     text-decoration-color var(--transition-fast);

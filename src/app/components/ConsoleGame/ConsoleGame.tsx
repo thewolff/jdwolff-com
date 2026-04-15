@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { createGame } from "./engine";
+import styles from "./ConsoleGame.module.css";
 
 export default function ConsoleGame() {
   useEffect(() => {
@@ -24,5 +25,10 @@ export default function ConsoleGame() {
     br();
   }, []);
 
-  return null;
+  return (
+    <div className={styles.terminal}>
+      <div id="game-log" className={styles.logArea}></div>
+      <div className={styles.gameContainer}>...</div>
+    </div>
+  );
 }

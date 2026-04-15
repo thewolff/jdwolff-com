@@ -119,7 +119,7 @@ export default function Home() {
         >
           Writing & Thinking
         </h2>
-        <ol className={styles.writingList} role="list">
+        <ul className={styles.writingList} role="list">
           <li>
             <article className={styles.writingItem}>
               <h3 className={styles.writingTitle}>
@@ -161,7 +161,7 @@ export default function Home() {
               </p>
             </article>
           </li>
-        </ol>
+        </ul>
         <Link href="/writing" className={`mono ${styles.allLink}`}>
           All writing <span aria-hidden="true">→</span>
         </Link>

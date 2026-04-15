@@ -63,7 +63,16 @@ function injectGlitch(text: string): string {
   });
 }
 
-// ── Game factory ──────────────────────────────────────────────────────
+    // ── Log area handling ──────────────────────────────────────────────
+  
+  function updateLog(message: string) {
+    const logEl = document.getElementById("game-log"); // Assuming we'll add this ID to a container
+    if (logEl) {
+      logEl.innerText = message;
+    }
+  }
+
+  // ── Game factory ──────────────────────────────────────────────────────
 
 export function createGame() {
   const { T, say: rawSay, br, setTheme } = createOutput();
@@ -133,7 +142,9 @@ export function createGame() {
     }
     br();
     const prefix = state.flags.sudo_mode ? "[root@office] " : "";
-    say(`${prefix}[ ${room.name} ]`, T.h);
+    const title = `${prefix}[ ${room.name} ]`;
+    say(title, T.h);
+    updateLog(title);
     br();
 
     if (state.flags.darkness && !isGrueExempt()) {

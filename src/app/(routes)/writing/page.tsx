@@ -20,16 +20,22 @@ const posts = [
     slug: "self-taught",
     title: "I have no CS degree. Here's what I learned anyway.",
     desc: "On being self-taught, imposter syndrome, and why the English major thing ended up being an advantage.",
+    date: "2026-03-10",
+    readTime: "5 min"
   },
   {
     slug: "accessibility",
     title: "Accessibility isn't a checklist. It's a disposition.",
     desc: "What fifteen years of building for everyone taught me about what software is actually for.",
+    date: "2026-02-15",
+    readTime: "7 min"
   },
   {
     slug: "design-systems",
     title: "Design systems are a trust problem, not a component problem.",
     desc: "The technical part is the easy part. The hard part is getting fifty teams to believe in the same foundation.",
+    date: "2026-01-05",
+    readTime: "9 min"
   },
 ];
 
@@ -40,18 +46,21 @@ export default function Writing() {
       title="Thinking out loud."
       intro="On frontend engineering, accessibility, design systems, and the strange experience of being an English major who writes code for a living."
     >
-      <ol className={styles.list} role="list">
+<ul className={styles.list} role="list">
         {posts.map((p) => (
           <li key={p.slug}>
             <article className={styles.post}>
-              <h2 className={styles.title}>
-                <Link href={`/writing/${p.slug}`}>{p.title}</Link>
-              </h2>
+              <header>
+                <div className="mono-label">PUB: {p.date} • {p.readTime} READ</div>
+                <h2 className={styles.title}>
+                  <Link href={`/writing/${p.slug}`}>{p.title}</Link>
+                </h2>
+              </header>
               <p className={`muted ${styles.desc}`}>{p.desc}</p>
             </article>
           </li>
         ))}
-      </ol>
+      </ul>
     </PageLayout>
   );
 }
