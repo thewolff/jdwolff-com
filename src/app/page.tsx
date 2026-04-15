@@ -50,7 +50,10 @@ export default function Home() {
         </p>
       </section>
 
-      <section className={styles.section} aria-labelledby="work-heading">
+      <section
+        className={`${styles.section} ${styles.fadeIn}`}
+        aria-labelledby="work-heading"
+      >
         <h2 id="work-heading" className={`mono muted ${styles.sectionLabel}`}>
           Selected Work
         </h2>
@@ -112,7 +115,11 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={styles.section} aria-labelledby="writing-heading">
+      <section
+        className={`${styles.section} ${styles.fadeIn}`}
+        style={{ animationDelay: "200ms" }}
+        aria-labelledby="writing-heading"
+      >
         <h2
           id="writing-heading"
           className={`mono muted ${styles.sectionLabel}`}

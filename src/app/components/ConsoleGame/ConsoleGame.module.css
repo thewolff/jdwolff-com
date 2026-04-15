@@ -7,8 +7,23 @@
 .logArea {
   font-family: var(--font-mono);
   font-weight: 700;
-  color: var(--color-warn);
-  transition: all 0.3s ease;
+  color: var(--color-accent);
+  transition: all 400ms var(--ease-out-expo);
+  padding: 0.5rem;
+  border-left: 2px solid var(--color-accent);
+  background: var(--color-bg-subtle);
+  animation: slideIn 300ms var(--ease-out-expo) forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .gameContainer {

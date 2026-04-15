@@ -112,6 +112,7 @@
 
   .hamburger {
     display: flex;
+    z-index: 102;
   }
 
   .nav {
@@ -128,6 +129,7 @@
 
   .navOpen {
     display: flex;
+    z-index: 100;
   }
 
   .nav a {
