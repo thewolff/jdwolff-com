@@ -53,7 +53,7 @@ export async function generateMetadata({
     description: post.desc,
     authors: [{ name: "Jo Wolff", url: "https://jdwolff.com" }],
     alternates: {
-      canonical: `https://jdwolff.com/writing/${slug}`,
+      canonical: `/writing/${slug}`,
     },
     openGraph: {
       type: "article",

@@ -26,7 +26,7 @@ export default function ConsoleGame() {
   }, []);
 
   return (
-    <div className={styles.terminal}>
+    <div className={styles.terminal} aria-hidden="true">
       <div id="game-log" className={styles.logArea}></div>
       <div className={styles.gameContainer}>...</div>
     </div>

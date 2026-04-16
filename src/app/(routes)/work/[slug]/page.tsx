@@ -42,7 +42,7 @@ export async function generateMetadata({
     title: `${project.title} — ${project.client}`,
     description: project.desc,
     alternates: {
-      canonical: `https://jdwolff.com/work/${slug}`,
+      canonical: `/work/${slug}`,
     },
     openGraph: {
       images: [

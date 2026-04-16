@@ -32,6 +32,45 @@ const personSchema = {
   ],
 };
 
+const featuredWork = [
+  {
+    slug: "onechat",
+    meta: "Airbnb · AI Chat",
+    title: "OneChat",
+    desc: "Rebuilding Airbnb's employee-facing AI chat from the ground up - new architecture, new features, and a design system migration that finally made the app feel like it belonged.",
+  },
+  {
+    slug: "meridian",
+    meta: "Amazon · Design Systems",
+    title: "Meridian",
+    desc: "Founding team member of Amazon's enterprise design system. Built for scale, designed for humans.",
+  },
+  {
+    slug: "dodgers",
+    meta: "LA Dodgers · 2015 · CLIO Award",
+    title: "Digital Trading Room",
+    desc: "Award-winning real-time interface for one of baseball's most storied franchises.",
+  },
+];
+
+const featuredWriting = [
+  {
+    slug: "self-taught",
+    title: "I have no CS degree. Here\u2019s what I learned anyway.",
+    desc: "On being self-taught, imposter syndrome, and why the English major thing ended up being an advantage.",
+  },
+  {
+    slug: "accessibility",
+    title: "Accessibility isn\u2019t a checklist. It\u2019s a disposition.",
+    desc: "What fifteen years of building for everyone taught me about what software is actually for.",
+  },
+  {
+    slug: "design-systems",
+    title: "Design systems are a trust problem, not a component problem.",
+    desc: "The technical part is the easy part. The hard part is getting fifty teams to believe in the same foundation.",
+  },
+];
+
 export default function Home() {
   return (
     <main id="main-content" className={styles.main}>
@@ -59,75 +98,27 @@ export default function Home() {
           Selected Work
         </h2>
         <div className={styles.workGrid}>
-          <article className={styles.workItem}>
-            <span className={`mono muted ${styles.workMeta}`}>
-              Airbnb · AI Chat
-            </span>
-            <h3
-              className={styles.workTitle}
-              style={{ viewTransitionName: "work-title-onechat" }}
-            >
-              OneChat
-            </h3>
-            <p className={styles.workDesc}>
-              Rebuilding Airbnb&apos;s employee-facing AI chat from the ground
-              up - new architecture, new features, and a design system migration
-              that finally made the app feel like it belonged.
-            </p>
-            <TransitionLink href="/work/onechat" className={`mono ${styles.workLink}`}>
-              Read the story <span aria-hidden="true">→</span>
-              <span className="visually-hidden">
-                {" "}
-                about Airbnb&apos;s OneChat
+          {featuredWork.map((item) => (
+            <article key={item.slug} className={styles.workItem}>
+              <span className={`mono muted ${styles.workMeta}`}>
+                {item.meta}
               </span>
-            </TransitionLink>
-          </article>
-
-          <article className={styles.workItem}>
-            <span className={`mono muted ${styles.workMeta}`}>
-              Amazon · Design Systems
-            </span>
-            <h3
-              className={styles.workTitle}
-              style={{ viewTransitionName: "work-title-meridian" }}
-            >
-              Meridian
-            </h3>
-            <p className={styles.workDesc}>
-              Founding team member of Amazon&apos;s enterprise design system.
-              Built for scale, designed for humans.
-            </p>
-            <TransitionLink href="/work/meridian" className={`mono ${styles.workLink}`}>
-              Read the story <span aria-hidden="true">→</span>
-              <span className="visually-hidden">
-                {" "}
-                about Meridian design system
-              </span>
-            </TransitionLink>
-          </article>
-
-          <article className={styles.workItem}>
-            <span className={`mono muted ${styles.workMeta}`}>
-              LA Dodgers · 2015 · CLIO Award
-            </span>
-            <h3
-              className={styles.workTitle}
-              style={{ viewTransitionName: "work-title-dodgers" }}
-            >
-              Digital Trading Room
-            </h3>
-            <p className={styles.workDesc}>
-              Award-winning real-time interface for one of baseball&apos;s most
-              storied franchises.
-            </p>
-            <TransitionLink href="/work/dodgers" className={`mono ${styles.workLink}`}>
-              Read the story <span aria-hidden="true">→</span>
-              <span className="visually-hidden">
-                {" "}
-                about the Dodgers Digital Trading Room.
-              </span>
-            </TransitionLink>
-          </article>
+              <h3
+                className={styles.workTitle}
+                style={{ viewTransitionName: `work-title-${item.slug}` }}
+              >
+                {item.title}
+              </h3>
+              <p className={styles.workDesc}>{item.desc}</p>
+              <TransitionLink
+                href={`/work/${item.slug}`}
+                className={`mono ${styles.workLink}`}
+              >
+                Read the story <span aria-hidden="true">→</span>
+                <span className="visuallyHidden"> about {item.title}</span>
+              </TransitionLink>
+            </article>
+          ))}
         </div>
       </section>
 
@@ -143,56 +134,23 @@ export default function Home() {
           Writing & Thinking
         </h2>
         <ul className={styles.writingList} role="list">
-          <li>
-            <article className={styles.writingItem}>
-              <h3
-                className={styles.writingTitle}
-                style={{ viewTransitionName: "writing-title-self-taught" }}
-              >
-                <TransitionLink href="/writing/self-taught">
-                  I have no CS degree. Here&apos;s what I learned anyway.
-                </TransitionLink>
-              </h3>
-              <p className={`muted ${styles.writingDesc}`}>
-                On being self-taught, imposter syndrome, and why the English
-                major thing ended up being an advantage.
-              </p>
-            </article>
-          </li>
-
-          <li>
-            <article className={styles.writingItem}>
-              <h3
-                className={styles.writingTitle}
-                style={{ viewTransitionName: "writing-title-accessibility" }}
-              >
-                <TransitionLink href="/writing/accessibility">
-                  Accessibility isn&apos;t a checklist. It&apos;s a disposition.
-                </TransitionLink>
-              </h3>
-              <p className={`muted ${styles.writingDesc}`}>
-                What fifteen years of building for everyone taught me about what
-                software is actually for.
-              </p>
-            </article>
-          </li>
-
-          <li>
-            <article className={styles.writingItem}>
-              <h3
-                className={styles.writingTitle}
-                style={{ viewTransitionName: "writing-title-design-systems" }}
-              >
-                <TransitionLink href="/writing/design-systems">
-                  Design systems are a trust problem, not a component problem.
-                </TransitionLink>
-              </h3>
-              <p className={`muted ${styles.writingDesc}`}>
-                The technical part is the easy part. The hard part is getting
-                fifty teams to believe in the same foundation.
-              </p>
-            </article>
-          </li>
+          {featuredWriting.map((item) => (
+            <li key={item.slug}>
+              <article className={styles.writingItem}>
+                <h3
+                  className={styles.writingTitle}
+                  style={{
+                    viewTransitionName: `writing-title-${item.slug}`,
+                  }}
+                >
+                  <TransitionLink href={`/writing/${item.slug}`}>
+                    {item.title}
+                  </TransitionLink>
+                </h3>
+                <p className={`muted ${styles.writingDesc}`}>{item.desc}</p>
+              </article>
+            </li>
+          ))}
         </ul>
         <Link href="/writing" className={`mono ${styles.allLink}`}>
           All writing <span aria-hidden="true">→</span>

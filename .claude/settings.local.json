@@ -4,7 +4,8 @@
       "Bash(curl -s http://localhost:3001/work/onechat)",
       "Bash(curl -s http://localhost:3001/writing/self-taught)",
       "Bash(curl -s http://localhost:3001/writing)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(npx stylelint *)"
     ]
   }
 }

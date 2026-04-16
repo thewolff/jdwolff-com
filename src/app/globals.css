@@ -158,6 +158,12 @@ a {
     text-decoration-color var(--transition-fast);
 }
 
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 a:hover {
   color: var(--color-accent-hover);
   text-decoration-color: var(--color-accent-hover);
@@ -235,14 +241,14 @@ body::before {
   color: var(--color-text-muted);
 }
 
-.visually-hidden {
+.visuallyHidden {
   position: absolute;
   width: 1px;
   height: 1px;
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
@@ -252,24 +258,24 @@ body::before {
       ================================ ============ */
 
 /* Root page crossfade — old fades out fast, new fades in with expo ease */
-@keyframes vt-fade-out {
+@keyframes vtFadeOut {
   to {
     opacity: 0;
   }
 }
 
-@keyframes vt-fade-in {
+@keyframes vtFadeIn {
   from {
     opacity: 0;
   }
 }
 
 ::view-transition-old(root) {
-  animation: 160ms ease-in both vt-fade-out;
+  animation: 160ms ease-in both vtFadeOut;
 }
 
 ::view-transition-new(root) {
-  animation: 320ms var(--ease-out-expo) 60ms both vt-fade-in;
+  animation: 320ms var(--ease-out-expo) 60ms both vtFadeIn;
 }
 
 /* Named element morphs (work/writing titles)

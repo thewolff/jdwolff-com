@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "This site targets WCAG 2.1 AA. Read what's been done, what's in progress, and how to report issues.",
   alternates: {
-    canonical: "https://jdwolff.com/accessibility",
+    canonical: "/accessibility",
   },
   openGraph: {
     images: [
@@ -43,6 +43,7 @@ export default function Accessibility() {
             rel="noopener noreferrer"
           >
             WCAG 2.1 Level AA
+            <span className="visuallyHidden"> (opens in new tab)</span>
           </a>
           . Where it&apos;s practical and doesn&apos;t compromise design, I aim
           for AAA.

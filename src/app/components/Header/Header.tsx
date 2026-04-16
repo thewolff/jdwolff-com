@@ -30,7 +30,7 @@ export default function Header() {
         role="status"
         aria-live="polite"
         aria-atomic="true"
-        className="visually-hidden"
+        className="visuallyHidden"
       >
         {open ? "Navigation menu open" : ""}
       </div>

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description:
     "Fifteen years in frontend. Formerly Amazon. English major first, engineer second.",
   alternates: {
-    canonical: "https://jdwolff.com/about",
+    canonical: "/about",
   },
   openGraph: {
     images: [

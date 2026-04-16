@@ -1,6 +1,6 @@
 export default function OneChat() {
   return (
-    <article className="case-study">
+    <>
       <section className="case-study__section">
         <h2>The Brief</h2>
         <p>
@@ -129,6 +129,6 @@ export default function OneChat() {
           sprint that comes after.
         </p>
       </section>
-    </article>
+    </>
   );
 }

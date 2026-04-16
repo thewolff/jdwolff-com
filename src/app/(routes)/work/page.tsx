@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Case studies from fifteen years in frontend — Amazon, AirBnB, LA Dodgers, and more.",
   alternates: {
-    canonical: "https://jdwolff.com/work",
+    canonical: "/work",
   },
   openGraph: {
     images: [{ url: "/og?eyebrow=Work&title=Things+I've+built." }],
@@ -57,7 +57,7 @@ export default function Work() {
               <p className={styles.desc}>{p.desc}</p>
               <Link href={`/work/${p.slug}`} className={`mono ${styles.link}`}>
                 Read the story <span aria-hidden="true">→</span>
-                <span className="visually-hidden"> about {p.title}</span>
+                <span className="visuallyHidden"> about {p.title}</span>
               </Link>
             </article>
           </li>

@@ -13,6 +13,6 @@
   transition: top var(--transition-fast);
 }
 
-.skipNav:focus {
+.skipNav:focus-visible {
   top: 0;
 }
