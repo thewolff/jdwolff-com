@@ -30,11 +30,29 @@
   color: var(--color-text-muted);
   text-decoration: none;
   letter-spacing: 0.04em;
+  position: relative;
   transition: color var(--transition-fast);
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition-fast);
 }
 
 .nav a:hover {
   color: var(--color-text);
+}
+
+.nav a:hover::after {
+  transform: scaleX(1);
 }
 
 .a11y {

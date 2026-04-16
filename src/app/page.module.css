@@ -10,12 +10,24 @@
   gap: var(--space-24);
 }
 
+@keyframes heroReveal {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .headline {
   font-family: var(--font-mono);
   font-size: clamp(2.5rem, 6vw, 5rem);
   margin-bottom: var(--space-8);
   line-height: 1.1;
   letter-spacing: -0.05em;
+  animation: heroReveal 0.65s var(--ease-out-expo) 80ms both;
 }
 
 .headline em {
@@ -27,6 +39,7 @@
   margin-bottom: var(--space-6);
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  animation: heroReveal 0.5s var(--ease-out-expo) 0ms both;
 }
 
 .subhead {
@@ -34,6 +47,7 @@
   color: var(--color-text-muted);
   line-height: 1.6;
   max-width: 48ch;
+  animation: heroReveal 0.65s var(--ease-out-expo) 240ms both;
 }
 
 /* Sections */
@@ -128,6 +142,16 @@
   margin-top: var(--space-2);
 }
 
+.workLink span[aria-hidden] {
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+
+.workItem:hover .workLink span[aria-hidden],
+.workLink:focus-visible span[aria-hidden] {
+  transform: translateX(6px);
+}
+
 /* Writing list */
 .writingList {
   display: flex;
@@ -191,6 +215,16 @@
   letter-spacing: 0.04em;
 }
 
+.allLink span[aria-hidden] {
+  display: inline-block;
+  transition: transform var(--transition-fast);
+}
+
+.allLink:hover span[aria-hidden],
+.allLink:focus-visible span[aria-hidden] {
+  transform: translateX(6px);
+}
+
 @media (width <= 1024px) {
   .main {
     gap: var(--space-16);
@@ -206,5 +240,19 @@
 
   .workGrid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .headline,
+  .subhead {
+    animation: none;
+    opacity: 1;
+  }
+
+  .workLink span[aria-hidden],
+  .allLink span[aria-hidden] {
+    transition: none;
   }
 }

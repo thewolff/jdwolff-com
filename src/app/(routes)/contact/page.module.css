@@ -12,14 +12,46 @@
   border-bottom: 1px solid var(--color-border);
   text-decoration: none;
   color: var(--color-text);
-  transition: color var(--transition-fast);
+  transition:
+    color var(--transition-fast),
+    transform var(--transition-base);
 }
 
 .contactLink:hover {
   color: var(--color-accent);
+  transform: translateX(10px);
 }
 
 .handle {
   font-family: var(--font-serif);
   font-size: var(--text-2xl);
+}
+
+.handle::after {
+  content: ' →';
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(-6px);
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-size: var(--text-lg);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-base);
+}
+
+.contactLink:hover .handle::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contactLink {
+    transition: color var(--transition-fast);
+  }
+
+  .handle::after {
+    transition: opacity var(--transition-fast);
+    transform: none;
+  }
 }

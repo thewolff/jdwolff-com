@@ -51,11 +51,29 @@
   text-decoration: none;
   color: var(--color-text-muted);
   letter-spacing: 0.04em;
+  position: relative;
   transition: color var(--transition-fast);
+}
+
+.nav a:not(.cta)::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform var(--transition-fast);
 }
 
 .nav a:not(.cta):hover {
   color: var(--color-text);
+}
+
+.nav a:not(.cta):hover::after {
+  transform: scaleX(1);
 }
 
 .cta {
