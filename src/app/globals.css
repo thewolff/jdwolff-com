@@ -248,6 +248,39 @@ body::before {
 }
 
 /* ================================ ============
+      VIEW TRANSITIONS
+      ================================ ============ */
+
+/* Root page crossfade — old fades out fast, new fades in with expo ease */
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root) {
+  animation: 160ms ease-in both vt-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 320ms var(--ease-out-expo) 60ms both vt-fade-in;
+}
+
+/* Named element morphs (work/writing titles)
+   The browser handles the position + size interpolation automatically.
+   We tune the easing and duration to match the site's motion language. */
+::view-transition-group(*) {
+  animation-duration: 420ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+/* ================================ ============
       REDUCED MOTION
       ================================ ============ */
 @media (prefers-reduced-motion: reduce) {
@@ -258,5 +291,13 @@ body::before {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  /* View transition pseudo-elements aren't caught by * — suppress explicitly */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-image-pair(*) {
+    animation: none !important;
   }
 }

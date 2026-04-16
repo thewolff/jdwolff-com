@@ -1,6 +1,6 @@
 import PageLayout from "@/app/components/PageLayout/PageLayout";
 import styles from "./page.module.css";
-import Link from "next/link";
+import TransitionLink from "@/app/components/TransitionLink/TransitionLink";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -52,8 +52,11 @@ export default function Writing() {
             <article className={styles.post}>
               <header>
                 <div className="mono-label">PUB: {p.date} • {p.readTime} READ</div>
-                <h2 className={styles.title}>
-                  <Link href={`/writing/${p.slug}`}>{p.title}</Link>
+                <h2
+                  className={styles.title}
+                  style={{ viewTransitionName: `writing-title-${p.slug}` }}
+                >
+                  <TransitionLink href={`/writing/${p.slug}`}>{p.title}</TransitionLink>
                 </h2>
               </header>
               <p className={`muted ${styles.desc}`}>{p.desc}</p>

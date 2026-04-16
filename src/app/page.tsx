@@ -1,5 +1,6 @@
 import styles from "./page.module.css";
 import Link from "next/link";
+import TransitionLink from "./components/TransitionLink/TransitionLink";
 import JsonLd from "./components/JsonLd/JsonLd";
 
 const personSchema = {
@@ -62,55 +63,70 @@ export default function Home() {
             <span className={`mono muted ${styles.workMeta}`}>
               Airbnb · AI Chat
             </span>
-            <h3 className={styles.workTitle}>OneChat</h3>
+            <h3
+              className={styles.workTitle}
+              style={{ viewTransitionName: "work-title-onechat" }}
+            >
+              OneChat
+            </h3>
             <p className={styles.workDesc}>
               Rebuilding Airbnb&apos;s employee-facing AI chat from the ground
               up - new architecture, new features, and a design system migration
               that finally made the app feel like it belonged.
             </p>
-            <Link href="/work/onechat" className={`mono ${styles.workLink}`}>
+            <TransitionLink href="/work/onechat" className={`mono ${styles.workLink}`}>
               Read the story <span aria-hidden="true">→</span>
               <span className="visually-hidden">
                 {" "}
                 about Airbnb&apos;s OneChat
               </span>
-            </Link>
+            </TransitionLink>
           </article>
 
           <article className={styles.workItem}>
             <span className={`mono muted ${styles.workMeta}`}>
               Amazon · Design Systems
             </span>
-            <h3 className={styles.workTitle}>Meridian</h3>
+            <h3
+              className={styles.workTitle}
+              style={{ viewTransitionName: "work-title-meridian" }}
+            >
+              Meridian
+            </h3>
             <p className={styles.workDesc}>
               Founding team member of Amazon&apos;s enterprise design system.
               Built for scale, designed for humans.
             </p>
-            <Link href="/work/meridian" className={`mono ${styles.workLink}`}>
+            <TransitionLink href="/work/meridian" className={`mono ${styles.workLink}`}>
               Read the story <span aria-hidden="true">→</span>
               <span className="visually-hidden">
                 {" "}
                 about Meridian design system
               </span>
-            </Link>
+            </TransitionLink>
           </article>
 
           <article className={styles.workItem}>
             <span className={`mono muted ${styles.workMeta}`}>
               LA Dodgers · 2015 · CLIO Award
             </span>
-            <h3 className={styles.workTitle}>Digital Trading Room</h3>
+            <h3
+              className={styles.workTitle}
+              style={{ viewTransitionName: "work-title-dodgers" }}
+            >
+              Digital Trading Room
+            </h3>
             <p className={styles.workDesc}>
               Award-winning real-time interface for one of baseball&apos;s most
               storied franchises.
             </p>
-            <Link href="/work/dodgers" className={`mono ${styles.workLink}`}>
+            <TransitionLink href="/work/dodgers" className={`mono ${styles.workLink}`}>
               Read the story <span aria-hidden="true">→</span>
               <span className="visually-hidden">
                 {" "}
                 about the Dodgers Digital Trading Room.
               </span>
-            </Link>
+            </TransitionLink>
           </article>
         </div>
       </section>
@@ -129,10 +145,13 @@ export default function Home() {
         <ul className={styles.writingList} role="list">
           <li>
             <article className={styles.writingItem}>
-              <h3 className={styles.writingTitle}>
-                <Link href="/writing/self-taught">
+              <h3
+                className={styles.writingTitle}
+                style={{ viewTransitionName: "writing-title-self-taught" }}
+              >
+                <TransitionLink href="/writing/self-taught">
                   I have no CS degree. Here&apos;s what I learned anyway.
-                </Link>
+                </TransitionLink>
               </h3>
               <p className={`muted ${styles.writingDesc}`}>
                 On being self-taught, imposter syndrome, and why the English
@@ -143,10 +162,13 @@ export default function Home() {
 
           <li>
             <article className={styles.writingItem}>
-              <h3 className={styles.writingTitle}>
-                <Link href="/writing/accessibility">
+              <h3
+                className={styles.writingTitle}
+                style={{ viewTransitionName: "writing-title-accessibility" }}
+              >
+                <TransitionLink href="/writing/accessibility">
                   Accessibility isn&apos;t a checklist. It&apos;s a disposition.
-                </Link>
+                </TransitionLink>
               </h3>
               <p className={`muted ${styles.writingDesc}`}>
                 What fifteen years of building for everyone taught me about what
@@ -157,10 +179,13 @@ export default function Home() {
 
           <li>
             <article className={styles.writingItem}>
-              <h3 className={styles.writingTitle}>
-                <Link href="/writing/design-systems">
+              <h3
+                className={styles.writingTitle}
+                style={{ viewTransitionName: "writing-title-design-systems" }}
+              >
+                <TransitionLink href="/writing/design-systems">
                   Design systems are a trust problem, not a component problem.
-                </Link>
+                </TransitionLink>
               </h3>
               <p className={`muted ${styles.writingDesc}`}>
                 The technical part is the easy part. The hard part is getting

@@ -1,26 +1,6 @@
 export default function OneChat() {
   return (
     <article className="case-study">
-      <header className="case-study__header">
-        <div className="case-study__meta">
-          <span className="case-study__company">Airbnb</span>
-          <span className="case-study__year">2024</span>
-        </div>
-        <h1 className="case-study__title">OneChat</h1>
-        <p className="case-study__subtitle">
-          Rebuilding Airbnb&apos;s employee-facing AI chat from the ground up -
-          new architecture, new features, and a design system migration that
-          finally made the app feel like it belonged.
-        </p>
-        <ul className="case-study__tags">
-          <li>React</li>
-          <li>TypeScript</li>
-          <li>IndexedDB</li>
-          <li>Design Systems</li>
-          <li>AI Tooling</li>
-        </ul>
-      </header>
-
       <section className="case-study__section">
         <h2>The Brief</h2>
         <p>

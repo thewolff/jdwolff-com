@@ -99,7 +99,12 @@ export default async function WritingPost({
   };
 
   return (
-    <PageLayout eyebrow={post.eyebrow} title={post.title} intro={post.desc}>
+    <PageLayout
+      eyebrow={post.eyebrow}
+      title={post.title}
+      intro={post.desc}
+      viewTransitionName={`writing-title-${slug}`}
+    >
       <JsonLd data={articleSchema} />
       <article className={styles.article}>
         <Content />

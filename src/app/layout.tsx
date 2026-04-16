@@ -8,6 +8,7 @@ import { siteConfig } from "@/app/lib/siteConfig";
 import SkipNav from "./components/SkipNav/SkipNav";
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
+import { ViewTransitionProvider } from "./components/TransitionLink/TransitionLink";
 import "./globals.css";
 import ConsoleGame from "@/app/components/ConsoleGame/ConsoleGame";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -113,11 +114,13 @@ export default function RootLayout({
       className={`${playfair.variable} ${sourceSerif.variable} ${jetbrainsMono.variable}`}
     >
       <body>
-        <SkipNav />
-        <Header />
-        {children}
-        <Footer />
-        <ConsoleGame />
+        <ViewTransitionProvider>
+          <SkipNav />
+          <Header />
+          {children}
+          <Footer />
+          <ConsoleGame />
+        </ViewTransitionProvider>
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         )}

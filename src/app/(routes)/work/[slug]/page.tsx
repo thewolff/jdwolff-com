@@ -66,7 +66,11 @@ export default async function WorkPost({
   const Content = project.component;
 
   return (
-    <PageLayout eyebrow={project.client} title={project.title}>
+    <PageLayout
+      eyebrow={project.client}
+      title={project.title}
+      viewTransitionName={`work-title-${slug}`}
+    >
       <article className={styles.article}>
         <Content />
       </article>
