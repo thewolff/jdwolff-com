@@ -44,6 +44,7 @@
   /* Layout */
   --max-width: 68ch;
   --max-width-wide: 90rem;
+  --max-width-content: 56rem;
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.25, 1, 0.5, 1);

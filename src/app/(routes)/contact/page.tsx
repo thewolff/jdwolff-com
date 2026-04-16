@@ -70,7 +70,7 @@ export default function Contact() {
               : {})}
           >
             <span className="mono muted">{label}</span>
-            <span>{handle}</span>
+            <span className={styles.handle}>{handle}</span>
             {external && (
               <span className="visuallyHidden"> (opens in new tab)</span>
             )}

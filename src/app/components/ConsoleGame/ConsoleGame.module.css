@@ -8,7 +8,9 @@
   font-family: var(--font-mono);
   font-weight: 700;
   color: var(--color-accent);
-  transition: all 400ms var(--ease-out-expo);
+  transition:
+    transform 400ms var(--ease-out-expo),
+    opacity 400ms var(--ease-out-expo);
   padding: 0.5rem;
   border-left: 2px solid var(--color-accent);
   background: var(--color-bg-subtle);

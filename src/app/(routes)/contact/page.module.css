@@ -19,7 +19,7 @@
   color: var(--color-accent);
 }
 
-.contactLink span:last-child {
+.handle {
   font-family: var(--font-serif);
   font-size: var(--text-2xl);
 }
