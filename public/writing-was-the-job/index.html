@@ -34,23 +34,15 @@
           </p>
           <aside class="notes">
             <p>
-              Good morning. It is eight AM and I am about to talk to you for half an hour about
-              writing, which is a hell of a thing to do to a room of engineers before coffee.
+              Good morning. I still write code — just very little of it, and not the parts you
+              would expect.
             </p>
             <p>
-              The title is a little bit of a lie, and I want to be honest about that up front. I
-              still write code. Not much of it, and not the parts you would expect. What
-              actually happened is that the writing moved. It used to go into files that
-              compile. Now it mostly goes into files that don't.
+              What happened is that the writing moved. It used to go into files that compile.
+              Now it mostly goes into files that don't.
             </p>
             <p>
-              That is the whole talk. Everything after this is me showing you what those files
-              are and why they earn their keep.
-            </p>
-            <p>
-              No pitch here. I am not selling you a tool, I don't work for Anthropic, and half
-              of what I'm going to show you I built because something went badly wrong first.
-              Ben asked me to come tell you what I actually do, so that is what this is.
+              This talk is those files, and why they earn their keep.
             </p>
           </aside>
         </section>
@@ -120,8 +112,26 @@
             </p>
             <p>
               And I want to be careful not to oversell this, because a folder of markdown files
-              is not an exciting artifact. But I will tell you what happened the first time
-              somebody on my team opened a file, saw the "dead ends, don't retry these" section,
+              is not an exciting artifact. So let me give you the concrete one.
+            </p>
+            <p>
+              On a performance project we tried to build an automated sweep in Docker —
+              production build, throttled network, repeated runs. We abandoned it, about a day
+              in. The reason is written in the file: building the client with mode production
+              bakes the real production auth URL into the bundle. That sweep would have been
+              firing real login attempts at our production auth server. We deleted it and
+              measured by hand instead.
+            </p>
+            <p>
+              So the dead-ends section says: do not resurrect this approach without first
+              solving the build-mode secret-baking problem. That is not a day saved. That is a
+              live-fire incident that doesn't happen.
+            </p>
+            <p>
+              And the part that actually matters is that the next engineer doesn't have to go
+              looking for that file. A SessionStart hook injects the recent entries before their
+              first prompt. They get told before they can make the mistake — which is the same
+              beat as the first time somebody opened one of these, saw the dead-ends section,
               and did not spend a day re-discovering something a teammate had already ruled out
               three weeks earlier.
             </p>
@@ -145,12 +155,9 @@
               reason.
             </p>
             <p>
-              I studied English. I got into this industry sideways and learned on the job. There were no bootcamps or university programs centered in frontend engineering when I started. 
-              I worked my way up the ranks, working at an agency and tech consultancy R/GA (where I met Ben), and contracting for Google in Mountain View.
-              After that I spent seven years at
-              Amazon, which was long enough that an internal tool once told me I had been there
-              longer than ninety-eight percent of the company. In Amazon years I was old as
-              dirt.
+              I studied English. I got into this industry sideways and learned on the job —
+              there were no bootcamps or university programs for frontend engineering when I
+              started. After that I spent seven years at Amazon.
             </p>
             <p>
               Now I'm the lead frontend engineer at a news and content creation startup called Newdle. Small team. Currently in beta.
@@ -229,8 +236,7 @@
             </p>
             <p>
               And worse than the throughput problem is the attention problem. When the code
-              looks plausible, and it always looks plausible, you skim. I skim. You skim too,
-              don't lie to me.
+              looks plausible, and it always looks plausible, you skim. I skim.
             </p>
             <p>
               So the question I got interested in was not "how do I get it to write more code."
@@ -380,8 +386,8 @@
           <p class="attrib">from the retraction log, 2026-07-24</p>
           <aside class="notes">
             <p>
-              This is the line I wrote at the end of that day, and it's the one I'd tattoo on
-              people if that were legal.
+              This is the line I wrote at the end of that day, and it's the one I'd keep if I
+              had to throw away every other slide.
             </p>
             <p>
               The profiler was not lying to me. It was answering a different question than the
@@ -391,14 +397,14 @@
               me so.
             </p>
             <p>
-              And you already know this one in your own domain, so stop me if I've got the
-              shape wrong. Somewhere in what you build there is a stage that shows you what the
-              result is going to be, and a later stage that produces the actual thing.
+              You have this exact instrument in your own pipeline. The viewport preview in CLO
+              or Browzwear is a ranking instrument: it tells you the drape is wrong, the seam is
+              off, the color is cooked. It's a very good instrument and you'd be lost without
+              it.
             </p>
             <p>
-              The preview is a ranking instrument. It tells you that one's wrong, that edge is
-              off, that color's cooked. It's a very good instrument and you'd be lost without
-              it.
+              It does not tell you what the produced sample will measure. Same shape as a fast
+              rasterized preview against the final path-traced render.
             </p>
             <p>
               It is not the output. The output is ground truth, and every one of you has had a
@@ -644,6 +650,12 @@
               it's a guess. However elementary it feels.
             </p>
             <p>
+              Your version of this isn't a database return code. It's "everyone knows the
+              exporter bakes units to centimeters." "Everyone knows that FBX writer triangulates
+              by default." "Everyone knows that SDK is right-handed." Same shape, same cost. Did
+              you check, or did you absorb it?
+            </p>
+            <p>
               That one rule has caught more real errors for me than any other single thing in
               this talk. Because it's exactly the class of statement nobody thinks to check.
             </p>
@@ -685,9 +697,10 @@
           </p>
           <aside class="notes">
             <p>
-              Now, you can put all of that in a rules file and ask nicely. And it works about
-              seventy percent of the time, which in a long session means it stops working right
-              when you've stopped paying attention.
+              Now, you can put all of that in a rules file and ask nicely. And it mostly works,
+              until it doesn't — and I can't tell you when. I have no measurement of the failure
+              rate, which is itself the argument: in a long session it stops working right when
+              you've stopped paying attention, and nothing tells you it stopped.
             </p>
             <p>
               So it's a hook. This is deterministic code that runs on an event, outside the
@@ -746,8 +759,8 @@
               The cheapest one first, and it's the one I run most.
             </p>
             <p>
-              We call it gaslight. Bad name, but I stole it from an engineer that I respect so I'd call that a wash.
-               After an agent finishes something non-
+              We call it gaslight — the reviewer's job is to make the author doubt the work
+              until it's defended with evidence. After an agent finishes something non-
               trivial, a second agent's entire job is to attack it. Not to review it politely.
               To argue that it's overengineered, that there's a smaller change that buys most of
               the benefit, that it doesn't fit the architecture.
@@ -794,8 +807,8 @@
               is the exact failure this exists to avoid.
             </p>
             <p>
-              I probably get that verdict a third of the time. That's how I know it isn't
-              theater.
+              A clean verdict comes back often enough that I trust the dirty ones. That's how I
+              know it isn't theater.
             </p>
           </aside>
         </section>
@@ -860,15 +873,44 @@
               things that only look fine if you already know why they're there.
             </p>
             <p>
+              I ran this yesterday on a commit that had already shipped. The architecture leg
+              ran out of time and returned nothing. The spec leg had no ticket to check against.
+              The only leg that produced anything was the cold read — the handicapped one — and
+              it came back with eleven findings, one of them critical.
+            </p>
+            <p>
+              The critical one: we had added a version three to our API by hand-copying the
+              version two route block and changing one hook. Nothing enforces that the two stay
+              in sync. Add a route to v2, forget to mirror it, and it is silently missing from
+              the version everyone is actually on. That had been merged for a while.
+            </p>
+            <p>
+              And the reason I trust that finding is the line underneath it. Every finding it
+              returns has a field called "first read" — what it assumed before it looked. On
+              this one it wrote: I assumed v3 was generated from a shared list. It is a parallel
+              hand-maintained block. It told me what it got wrong on the way to being right.
+            </p>
+            <p>
               Then I merge the three reports, and the ranking signal is not severity. It's
               agreement. When two labs that share no training run independently flag the same
               line, that's real. When only one flags it, it's worth a look and it's not
               evidence.
             </p>
             <p>
-              This is slow and it costs real money and I gate it hard. I run it before something
-              lands that touches shared surface area. API contracts, design tokens, anything
-              more than one repo consumes. Never on a one-file diff.
+              I want to be precise about what this costs, because it isn't dollars. All three
+              legs run on flat-rate plans. The cost is wall clock. I capped each leg at ten
+              minutes, and I have the numbers from real runs: the two fast legs come back in
+              one to seven minutes, and the architecture leg — the one with full repo context —
+              takes eight, nine minutes. On a diff of about a hundred and fifty kilobytes it hit
+              the cap and returned nothing at all.
+            </p>
+            <p>
+              So call it ten minutes a run, and I get two or three runs a week.
+            </p>
+            <p>
+              Which means I can't run it on every diff and stay in flow. So I gate it: only
+              before something lands that touches shared surface area. API contracts, design
+              tokens, anything more than one repo consumes. Never on a one-file diff.
             </p>
           </aside>
         </section>
@@ -909,7 +951,7 @@
               raised.
             </p>
             <p>
-              And the design decision I'm proudest of is that it will not pick a winner. It is
+              And the design decision that matters most is that it will not pick a winner. It is
               instructed, explicitly, not to resolve the disagreement. Because the disagreement
               is the output. That's the actual decision, and that one's mine.
             </p>
@@ -988,6 +1030,31 @@
               (Beat.)
             </p>
             <p>
+              Here's what that actually was. The claim was that constructing the crypto object
+              in the image-signing path was the hidden cost — the profiler showed that subtree
+              at about thirteen hundred milliseconds. The plan was to reorder the whole project
+              to put that fix first.
+            </p>
+            <p>
+              What I did instead was shell into the container and count. How many images
+              actually get signed on a real feed? Six hundred and eight unique image ids across
+              the hundred and eighty-five most recent story revisions. That's twelve hundred and
+              sixteen signing calls. Then I benchmarked one call: seven microseconds, and one
+              microsecond if you memoize it.
+            </p>
+            <p>
+              So the entire loop, at real production volume, is thirteen point eight
+              milliseconds. And the fix I was about to make PR one was worth seven point four.
+            </p>
+            <p>
+              For that thirteen-hundred-millisecond reading to have been real, we would have
+              needed about fifty-six thousand images in a single feed, or a CPU ninety-two times
+              slower than the container it was running in. Neither one is credible.
+            </p>
+            <p>
+              That's conclusion number two on that list. The reorder was cancelled.
+            </p>
+            <p>
               And the sentence I wrote at the end of that day was: adversarial review earns its
               cost when it runs experiments, not arguments.
             </p>
@@ -1020,7 +1087,7 @@
           <aside class="notes">
             <p>
               Thing three, and this is the one Ben specifically asked me to talk about, because
-              it's the part that's about you lot and not about the robot.
+              it's the part that's about you and not about the robot.
             </p>
           </aside>
         </section>
@@ -1046,9 +1113,8 @@
               March and nobody remembers why we did that thing in March.
             </p>
             <p>
-              You don't have much turnover on this team, which is genuinely rare and I'm a little
-              jealous. So you might feel this less than we do. But your agents have one hundred
-              percent turnover, every single session, forever.
+              You don't have much turnover on this team, so you might feel this less than we do.
+              But your agents have one hundred percent turnover, every single session, forever.
             </p>
             <p>
               Same problem. Same fix. Write it down.
