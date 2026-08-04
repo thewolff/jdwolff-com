@@ -1,0 +1,1537 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>I Stopped Writing Code</title>
+    <base href="/writing-was-the-job/" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta property="og:title" content="How I Became a Developer Who Doesn't Write Code" />
+    <meta property="og:description" content="A 45-minute talk on using agentic AI in the development process. Press S for the full script." />
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="stylesheet" href="vendor/reveal/reset.css" />
+    <link rel="stylesheet" href="vendor/reveal/reveal.css" />
+    <link rel="stylesheet" href="assets/fonts/fonts.css" />
+    <link rel="stylesheet" href="assets/theme.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- ═══════════════════════════════════════════════════════════
+     ACT 1 — WHAT IS
+     ═══════════════════════════════════════════════════════════ -->
+
+        <!-- 1 · TITLE -->
+        <section data-background-color="#D26B3F" class="invert">
+          <span class="kicker">A talk about writing</span>
+          <h1>
+            How I Became<br />a Developer<br />Who Doesn't<br />Write Code
+          </h1>
+          <p class="sub" style="margin-top: 0.8em">
+            Jo Wolff · Lead Frontend Engineer, Newdle
+          </p>
+          <aside class="notes">
+            <p>
+              Good morning. It is eight AM and I am about to talk to you for half an hour about
+              writing, which is a hell of a thing to do to a room of engineers before coffee.
+            </p>
+            <p>
+              The title is a little bit of a lie, and I want to be honest about that up front. I
+              still write code. Not much of it, and not the parts you would expect. What
+              actually happened is that the writing moved. It used to go into files that
+              compile. Now it mostly goes into files that don't.
+            </p>
+            <p>
+              That is the whole talk. Everything after this is me showing you what those files
+              are and why they earn their keep.
+            </p>
+            <p>
+              No pitch here. I am not selling you a tool, I don't work for Anthropic, and half
+              of what I'm going to show you I built because something went badly wrong first.
+              Ben asked me to come tell you what I actually do, so that is what this is.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 2 · THE ARTIFACT -->
+        <section>
+          <span class="kicker">exhibit A</span>
+          <div class="doc">
+            <span class="fm">---</span><br />
+            <span class="fm">date:</span> 2026-07-31T20:23-07:00<br />
+            <span class="fm">engineer:</span> Jo Wolff<br />
+            <span class="fm">session:</span> newsletter emails now embed a
+            writing's uploaded images<br />
+            <span class="fm">status:</span> resolved<br />
+            <span class="fm">---</span>
+
+            <span class="h">What changed</span>
+            Fixed the gap where emails stripped every image: the render path
+            needed a
+            <span class="dim">mediaId&nbsp;&rarr;&nbsp;URL</span> map that no
+            call site ever passed, so media nodes rendered as empty caption-only
+            figures.
+
+            <span class="h">Decisions made (and why)</span>
+            Embed the writing's own images only, not the connected hero. Those
+            URLs are permanent public-read CDN URLs, so they never expire in an
+            inbox. Hero images resolve through a signer to seven-day URLs that
+            would break a week after send.
+
+            <span class="h">Dead ends — don't retry these</span>
+            <span class="dim">None.</span>
+
+            <span class="h">Heads-up for whoever touches this next</span>
+            Emails already sent permanently lack images. The HTML is frozen on
+            the row at enqueue time. Nothing is committed yet.
+          </div>
+          <aside class="notes">
+            <p>
+              This is a real file from my team's repo. I've scrubbed the product details, but
+              the shape and the prose are exactly what's on disk.
+            </p>
+            <p>
+              It has my name on it. It has my judgment in it. It explains a decision I made and
+              the reason behind the decision, which is the part that actually matters six weeks
+              from now.
+            </p>
+            <p>
+              I did not type a single word of it.
+            </p>
+            <p>
+              An agent wrote it at the end of a working session, from the session itself. I read
+              it, I corrected two things, and I committed it. Ninety seconds.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 3 · THE CLAIM -->
+        <section>
+          <h2>It's the most<br />useful document<br />my team has.</h2>
+          <p class="lede" style="margin-top: 0.6em">
+            There are about sixty of them.<br />Four people write them.
+          </p>
+          <aside class="notes">
+            <p>
+              We have about sixty of these now. Four engineers, one directory, sorted by
+              date.
+            </p>
+            <p>
+              And I want to be careful not to oversell this, because a folder of markdown files
+              is not an exciting artifact. But I will tell you what happened the first time
+              somebody on my team opened a file, saw the "dead ends, don't retry these" section,
+              and did not spend a day re-discovering something a teammate had already ruled out
+              three weeks earlier.
+            </p>
+            <p>
+              That's the whole product. That's what I am here to describe. But to explain why
+              I built it, I have to back up quite a lot.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 4 · BIO -->
+        <section data-background-color="#43285C" class="invert">
+          <span class="kicker">who is this person</span>
+          <h2>
+            English major.<br />Seven years at Amazon.<br />Now frontend lead<br />at
+            a startup.
+          </h2>
+          <aside class="notes">
+            <p>
+              Fifteen seconds on me, because you don't know me and it matters for exactly one
+              reason.
+            </p>
+            <p>
+              I studied English. I got into this industry sideways and learned on the job. There were no bootcamps or university programs centered in frontend engineering when I started. 
+              I worked my way up the ranks, working at an agency and tech consultancy R/GA (where I met Ben), and contracting for Google in Mountain View.
+              After that I spent seven years at
+              Amazon, which was long enough that an internal tool once told me I had been there
+              longer than ninety-eight percent of the company. In Amazon years I was old as
+              dirt.
+            </p>
+            <p>
+              Now I'm the lead frontend engineer at a news and content creation startup called Newdle. Small team. Currently in beta.
+            </p>
+            <p>
+              That's it. The only part that's load-bearing is the English major, and you'll see
+              why in about twenty minutes.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 5 · AMAZON DOCS -->
+        <section>
+          <span class="kicker">the part that stuck</span>
+          <h2>At Amazon,<br />writing docs<br />is like breathing.</h2>
+          <aside class="notes">
+            <p>
+              Amazon doesn't do slide decks. You may have heard this. You write a six-page
+              narrative, everybody sits in silence and reads it for twenty minutes, and then
+              they take it apart. It's nerve-wracking as hell.
+            </p>
+            <p>
+              And those docs had to stand up to genuinely intense scrutiny. In a doc review
+              people would call you out if your reasoning was unclear. You could not get away
+              with lazy writing. I watched entire meetings derail over formatting before anyone
+              got to the actual content.
+            </p>
+            <p>
+              I hated it at the time. I want to be clear about that. It was exhausting and it
+              was frequently humiliating.
+            </p>
+            <p>
+              It also turned out to be the single most transferable skill I picked up there, and
+              I did not figure that out until an AI agent started writing code for me.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 6 · STATUS QUO -->
+        <section>
+          <span class="kicker">where most of us are</span>
+          <h2>
+            Right now, AI is<br />a very fast intern<br />you have to babysit.
+          </h2>
+          <aside class="notes">
+            <p>
+              That's the status quo, and I don't think it's controversial.
+            </p>
+            <p>
+              Most of us are using these things as a very fast intern. You describe a thing. It
+              produces a thing. You read the thing, you fix the thing, you paste it in. Maybe
+              it's in your editor now instead of a browser tab, so the loop is tighter, but it's
+              the same loop.
+            </p>
+            <p>
+              And that's real value. I'm not going to stand here and tell you tab-complete on
+              steroids is nothing. It's a lot. It made me meaningfully faster.
+            </p>
+            <p>
+              But there's a ceiling on it, and the ceiling is you.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 7 · THE CEILING -->
+        <section>
+          <div class="quote">
+            Every line it writes, you have to read. So your reading speed is the
+            throughput of the whole system.
+          </div>
+          <aside class="notes">
+            <p>
+              Every line it writes, you have to read. Which means your reading speed is the
+              throughput of the entire system. You've moved the bottleneck, you haven't removed
+              it.
+            </p>
+            <p>
+              And worse than the throughput problem is the attention problem. When the code
+              looks plausible, and it always looks plausible, you skim. I skim. You skim too,
+              don't lie to me.
+            </p>
+            <p>
+              So the question I got interested in was not "how do I get it to write more code."
+              It was "how do I stop being the only thing standing between this and production."
+            </p>
+            <p>
+              I got interested in that question for a bad reason.
+            </p>
+          </aside>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+     ACT 2 — THE TURN
+     ═══════════════════════════════════════════════════════════ -->
+
+        <!-- 8 · ACT BREAK -->
+        <section data-background-color="#231F1A" class="invert">
+          <span class="kicker">act two</span>
+          <h1>The day I was<br />wrong five times<br />in a row.</h1>
+          <aside class="notes">
+            <p>
+              (Beat. Let it sit.)
+            </p>
+            <p>
+              Last month. We had a performance problem. Our feed was taking five and a half
+              seconds to load cold, and I spent a day chasing it with agents.
+            </p>
+            <p>
+              At the end of that day I had a root cause, a plan, an implementation doc, and a
+              three-agent review that had signed off on it.
+            </p>
+            <p>
+              Every single one of those conclusions was wrong.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 9 · THE NUMBER -->
+        <section>
+          <span class="kicker">that one day</span>
+          <div class="stat">5</div>
+          <p class="lede" style="margin-top: 0.5em">
+            confident conclusions.<br />All five retracted.
+          </p>
+          <aside class="notes">
+            <p>
+              Five. Five successive, confident, documented conclusions, each one of which I
+              believed hard enough to write down and act on, and each one of which I had to
+              retract.
+            </p>
+            <p>
+              Not five guesses. Five conclusions. Some of them had already survived a review
+              pass.
+            </p>
+            <p>
+              And I want to show you the actual list, because the specifics are the interesting
+              part.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 10 · THE RETRACTIONS -->
+        <section>
+          <span class="kicker">dead ends — don't retry these</span>
+          <div class="retraction">
+            <span class="n">1</span
+            ><span class="t"
+              >~1.6s is spent parsing JSON from the database.</span
+            >
+            <span class="n">2</span
+            ><span class="t"
+              >Constructing the crypto object is the hidden cost.</span
+            >
+            <span class="n">3</span
+            ><span class="t"
+              >The CPU profile shows no frame hot enough to matter.</span
+            >
+            <span class="n">4</span
+            ><span class="t"
+              >Event-loop utilization of 1.0 proves CPU saturation.</span
+            >
+            <span class="n">5</span
+            ><span class="t"
+              >Caching the signatures removes most of that 25%.</span
+            >
+          </div>
+          <aside class="notes">
+            <p>
+              Read them out. Slowly.
+            </p>
+            <p>
+              Number one: one point six seconds of database JSON parsing. Real number, measured
+              twenty-five milliseconds. Wrong by about sixty times.
+            </p>
+            <p>
+              Number two: object construction in the crypto path is the hidden cost. Measured
+              one and a third microseconds. The whole loop, at real volume, was fourteen
+              milliseconds.
+            </p>
+            <p>
+              Number three: the profiler shows nothing hot enough. It did, actually. Twenty-five
+              percent of samples.
+            </p>
+            <p>
+              Number four: the utilization metric proves saturation. That metric is computed as
+              active over active plus idle, and when both readings land in the same event loop
+              turn it is exactly one by arithmetic. It was never measuring what I thought it
+              measured.
+            </p>
+            <p>
+              Number five is my favorite, because number five was written inside the document
+              that was correcting number three. I was fixing an error and I reused the broken
+              numbers to do it.
+            </p>
+            <p>
+              Now. This is the part I care about.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 11 · CERTAINTY -->
+        <section data-background-color="#A6332C" class="invert">
+          <h1>Every one of them<br />sounded<br />completely certain.</h1>
+          <aside class="notes">
+            <p>
+              Every one of them sounded completely certain.
+            </p>
+            <p>
+              Not hedged. Not "it might be." Confident, well-structured, cited-looking prose
+              with real numbers in it. Which is exactly what a correct answer also looks like.
+            </p>
+            <p>
+              That's the thing that broke my brain a little. I had spent a year learning to
+              evaluate these tools on whether the output was coherent, and coherence turns out
+              to be a property the model has for free. It is not evidence.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 12 · THE INSTRUMENT -->
+        <section>
+          <span class="kicker">the actual lesson</span>
+          <div class="quote">
+            The profiler is a valid <strong>ranking</strong> instrument and an
+            invalid <strong>sizing</strong> one.
+          </div>
+          <p class="attrib">from the retraction log, 2026-07-24</p>
+          <aside class="notes">
+            <p>
+              This is the line I wrote at the end of that day, and it's the one I'd tattoo on
+              people if that were legal.
+            </p>
+            <p>
+              The profiler was not lying to me. It was answering a different question than the
+              one I was asking. It could tell me which thing was hottest. It could not tell me
+              how many milliseconds that thing cost. I used a ranking instrument to do sizing,
+              and it gave me a number, and the number was garbage, and nothing in the tool told
+              me so.
+            </p>
+            <p>
+              And you already know this one in your own domain, so stop me if I've got the
+              shape wrong. Somewhere in what you build there is a stage that shows you what the
+              result is going to be, and a later stage that produces the actual thing.
+            </p>
+            <p>
+              The preview is a ranking instrument. It tells you that one's wrong, that edge is
+              off, that color's cooked. It's a very good instrument and you'd be lost without
+              it.
+            </p>
+            <p>
+              It is not the output. The output is ground truth, and every one of you has had a
+              day where the preview looked right and the real thing came out and disagreed with
+              it.
+            </p>
+            <p>
+              An AI agent is a preview. A very good, very fast, very confident preview. It is
+              not the thing.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 13 · BIG IDEA A -->
+        <section data-background-color="#231F1A" class="invert">
+          <h1>Confidence<br />is not<br />correctness.</h1>
+          <aside class="notes">
+            <p>
+              Confidence is not correctness. That's problem one.
+            </p>
+            <p>
+              You cannot read your way out of this. Fluent wrong text and fluent right text are
+              indistinguishable at reading speed, and I'd been reviewing at reading speed all
+              day.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 14 · CORRELATED BLIND SPOTS -->
+        <section>
+          <span class="kicker">problem two</span>
+          <div class="quote">
+            Claude reviewing Claude's code is the same weights grading their own
+            homework.
+          </div>
+          <p class="attrib">and subagents change the role, not the priors</p>
+          <aside class="notes">
+            <p>
+              And problem two, which is the one I fell for hardest: I tried to fix problem one
+              by asking the model to check itself.
+            </p>
+            <p>
+              You can spin up a review agent. Give it a different persona, a different prompt, a
+              different job title. It'll come back with findings. It feels like a second
+              opinion.
+            </p>
+            <p>
+              It isn't. Same weights, same training, same blind spots. You've changed the role,
+              not the priors. Two agents from the same model agreeing is not two data points.
+              It's one data point said twice, louder.
+            </p>
+            <p>
+              So: an unreliable narrator, and a review process that shares all of the narrator's
+              biases. That's the actual problem.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 15 · NOT NEW -->
+        <section data-background-color="#878B4C" class="invert">
+          <h2>
+            We solved both<br />of these for humans<br />thirty years ago.
+          </h2>
+          <aside class="notes">
+            <p>
+              This is where it turned for me.
+            </p>
+            <p>
+              An unreliable narrator who sounds confident. A review process that shares the
+              narrator's blind spots. Institutional knowledge that evaporates when a session
+              ends.
+            </p>
+            <p>
+              Those are not AI problems. Those are the three oldest problems in software
+              engineering, and we have known answers for all of them.
+            </p>
+            <p>
+              Show your evidence. Get review from someone who wasn't in the room. Write down
+              what you learned so the next person doesn't repeat it.
+            </p>
+            <p>
+              Code review. Postmortems. Design docs. Runbooks.
+            </p>
+            <p>
+              I did not need new ideas. I needed to point thirty-year-old ideas at a new kind of
+              coworker. And it turns out the reason I knew how to do that was seven years of
+              Amazon doc reviews that I resented at the time.
+            </p>
+            <p>
+              So here's what I actually built. Three things.
+            </p>
+          </aside>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+     ACT 3 · PILLAR A — RECEIPTS
+     ═══════════════════════════════════════════════════════════ -->
+
+        <!-- 16 · PILLAR A BREAK -->
+        <section data-background-color="#43285C" class="invert">
+          <span class="kicker">one of three</span>
+          <h1>Make it show<br />its receipts.</h1>
+          <aside class="notes">
+            <p>
+              Thing one. Make it show its receipts.
+            </p>
+            <p>
+              If the failure mode is that everything sounds equally certain, then the fix is to
+              stop letting everything sound equally certain.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 17 · THE FOUR TYPES -->
+        <section>
+          <span class="kicker">every statement is one of four things</span>
+          <div class="grid four" style="margin-top: 0.3em">
+            <div class="panel orange">
+              <span class="tile-label">Claim</span
+              ><span class="tile-note">a fact about our code</span>
+            </div>
+            <div class="panel blue">
+              <span class="tile-label">Cite</span
+              ><span class="tile-note">a fact from outside</span>
+            </div>
+            <div class="panel gold">
+              <span class="tile-label">Guess</span
+              ><span class="tile-note">inference, recollection</span>
+            </div>
+            <div class="panel olive">
+              <span class="tile-label">Action</span
+              ><span class="tile-note">something that changed</span>
+            </div>
+          </div>
+          <aside class="notes">
+            <p>
+              Every statement an agent hands me is one of four things, and each one has a
+              different failure cost, so each one gets labeled separately.
+            </p>
+            <p>
+              A CLAIM is a fact about our codebase. A CITE is a fact from outside it. A GUESS is
+              inference, pattern-matching, recollection, "usually." An ACTION is something that
+              changed state.
+            </p>
+            <p>
+              Flattened into one stream of confident prose, none of these can be trusted,
+              because you can't tell them apart. Labeled, I can read a report in a third of the
+              time and know exactly where to push.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 18 · THE RECEIPTS -->
+        <section>
+          <span class="kicker">each one costs something different</span>
+          <div class="grid four" style="margin-top: 0.3em">
+            <div class="panel">
+              <span class="tile-label" style="color: var(--venture-orange)"
+                >Claim</span
+              ><span class="tile-note"
+                ><strong>file.ts:88</strong><br />or the command<br />and its
+                real output</span
+              >
+            </div>
+            <div class="panel">
+              <span class="tile-label" style="color: var(--brock-blue)"
+                >Cite</span
+              ><span class="tile-note"
+                ><strong>a URL</strong> fetched<br />this session,<br />or a
+                live test</span
+              >
+            </div>
+            <div class="panel">
+              <span class="tile-label" style="color: var(--compound-olive)"
+                >Guess</span
+              ><span class="tile-note"
+                ><strong>nothing</strong><br />— but it has to<br />say it's a
+                guess</span
+              >
+            </div>
+            <div class="panel">
+              <span class="tile-label" style="color: var(--pulp-red)"
+                >Action</span
+              ><span class="tile-note"
+                ><strong>the command,</strong><br />the exit code,<br />how to
+                undo it</span
+              >
+            </div>
+          </div>
+          <p
+            class="lede"
+            style="margin-top: 0.7em; max-width: 34ch; font-size: 0.72em"
+          >
+            No receipt, no claim. It gets downgraded to a guess.
+          </p>
+          <aside class="notes">
+            <p>
+              And each type has a required receipt.
+            </p>
+            <p>
+              A CLAIM needs a file and a line number, or the exact command and its actual
+              output. A CITE needs a URL fetched in this session or a test run in this session.
+              A GUESS needs nothing, but it has to say out loud that it's a guess. An ACTION
+              needs the command, the exit code, and how to reverse it.
+            </p>
+            <p>
+              The rule that makes the whole thing work is this. The type is set by whether a
+              receipt is attached, not by how confident the statement feels. No receipt, no
+              claim. It gets downgraded to a guess and marked as one.
+            </p>
+            <p>
+              And "I could not verify this" is a successful report. That's important. I had to
+              say that out loud in the instructions, because the default behavior of these
+              models is to produce an answer rather than admit a gap.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 19 · THE TRAP -->
+        <section data-background-color="#E0B23C">
+          <span class="kicker">the one that gets everybody</span>
+          <h2>"Everyone knows<br />−2 means the key<br />doesn't exist."</h2>
+          <p class="lede" style="margin-top: 0.7em; font-size: 0.8em">
+            That's a <strong>guess</strong>.
+          </p>
+          <aside class="notes">
+            <p>
+              This is the failure mode that took me longest to catch, and it's the one I'd flag
+              hardest for you.
+            </p>
+            <p>
+              Statements about how somebody else's system behaves. Database return codes. What a
+              SQL operator does with nulls. A vendor's default timeout. A runtime's memory
+              limit. Some framework convention.
+            </p>
+            <p>
+              Those read like vocabulary. They don't read like assertions. So they sail straight
+              past the check and land in a planning doc as fact.
+            </p>
+            <p>
+              "Everyone knows minus two means the key doesn't exist." Do you know that, or did
+              you absorb it? If you didn't fetch the doc or run the command in this session,
+              it's a guess. However elementary it feels.
+            </p>
+            <p>
+              That one rule has caught more real errors for me than any other single thing in
+              this talk. Because it's exactly the class of statement nobody thinks to check.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 20 · ENFORCEMENT -->
+        <section>
+          <span class="kicker">asking nicely does not work</span>
+          <div class="term">
+            <span class="d">// .claude/hooks/hooks.json</span><br />
+            {<br />
+            &nbsp;&nbsp;<span class="c">"PreToolUse"</span>: [<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{ <span class="c">"matcher"</span>:
+            <span class="p">"Edit|Write"</span>,
+            <span class="c">"command"</span>:
+            <span class="p">"repo-rules-inject.mjs"</span> },<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{ <span class="c">"matcher"</span>:
+            <span class="p">"Bash"</span
+            >,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c"
+              >"command"</span
+            >: <span class="p">"careful-guard.mjs"</span> },<br />
+            &nbsp;&nbsp;&nbsp;&nbsp;{ <span class="c">"matcher"</span>:
+            <span class="p">"Task"</span
+            >,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="c"
+              >"command"</span
+            >: <span class="p">"delegation-guard.mjs"</span> }<br />
+            &nbsp;&nbsp;],<br />
+            &nbsp;&nbsp;<span class="c">"Stop"</span>: [{
+            <span class="c">"command"</span>:
+            <span class="p">"output-types-guard.mjs"</span> }]<br />
+            }
+          </div>
+          <p
+            class="lede"
+            style="margin-top: 0.7em; max-width: 30ch; font-size: 0.72em"
+          >
+            Instructions are a suggestion. A hook is a gate.
+          </p>
+          <aside class="notes">
+            <p>
+              Now, you can put all of that in a rules file and ask nicely. And it works about
+              seventy percent of the time, which in a long session means it stops working right
+              when you've stopped paying attention.
+            </p>
+            <p>
+              So it's a hook. This is deterministic code that runs on an event, outside the
+              model, every time. It can inspect what the model is about to do, and it can block
+              it, or inject context, or rewrite the arguments.
+            </p>
+            <p>
+              We've got ten of them. One blocks destructive shell commands until I confirm. One
+              injects the repo's rules right before any file write, so they're never more than a
+              few thousand tokens stale. One checks the output-type labeling before a turn ends.
+            </p>
+            <p>
+              The distinction I'd underline: an instruction is a suggestion to a probabilistic
+              system. A hook is a gate. When something actually matters, don't ask the model to
+              remember it. Make it structurally unable to skip it.
+            </p>
+            <p>
+              I'll come back to hooks at the end, because they exist in your stack too and they're worth thinking about.
+            </p>
+          </aside>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+     ACT 3 · PILLAR B — DISAGREEMENT
+     ═══════════════════════════════════════════════════════════ -->
+
+        <!-- 21 · PILLAR B BREAK -->
+        <section data-background-color="#43285C" class="invert">
+          <span class="kicker">two of three</span>
+          <h1>Make it<br />disagree<br />with itself.</h1>
+          <aside class="notes">
+            <p>
+              Thing two. Receipts fix the honesty problem. They don't fix the blind-spot
+              problem.
+            </p>
+            <p>
+              For that you need genuine disagreement, and genuine disagreement is harder to
+              manufacture than it looks.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 22 · GASLIGHT -->
+        <section>
+          <span class="kicker">the cheap one, and I use it daily</span>
+          <h2>Turn on the author.<br />Make them earn<br />the change.</h2>
+          <p
+            class="lede"
+            style="margin-top: 0.6em; font-size: 0.7em; max-width: 32ch"
+          >
+            <code style="font-family: var(--r-code-font)">/gaslight</code> — a
+            skeptical pass over work the agent just produced
+          </p>
+          <aside class="notes">
+            <p>
+              The cheapest one first, and it's the one I run most.
+            </p>
+            <p>
+              We call it gaslight. Bad name, but I stole it from an engineer that I respect so I'd call that a wash.
+               After an agent finishes something non-
+              trivial, a second agent's entire job is to attack it. Not to review it politely.
+              To argue that it's overengineered, that there's a smaller change that buys most of
+              the benefit, that it doesn't fit the architecture.
+            </p>
+            <p>
+              Four blunt framings it leads with, and I'll read them because the bluntness is the
+              point: "You overengineered this, there is a simpler way." "There is a smaller
+              delta." "There is a more elegant way." "This is not architecturally coherent."
+            </p>
+            <p>
+              It's rude on purpose. Polite review agents produce polite nothing.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 23 · THE ONE RULE -->
+        <section data-background-color="#35596B" class="invert">
+          <div class="quote">
+            Do not manufacture flaws. This is truth-seeking pressure, not
+            theater.
+          </div>
+          <p
+            class="lede"
+            style="margin-top: 0.9em; font-size: 0.68em; max-width: 34ch"
+          >
+            "This holds up, and here's why" is a valid outcome.
+          </p>
+          <aside class="notes">
+            <p>
+              And there's exactly one rule that keeps it honest, which is written at the top of
+              the file in bold.
+            </p>
+            <p>
+              Do not manufacture flaws.
+            </p>
+            <p>
+              Because the failure mode of an adversarial reviewer is obvious the second you
+              build one: you've told it to find problems, so it finds problems, and now you're
+              chasing invented issues and you trust it less every time.
+            </p>
+            <p>
+              So the instruction says explicitly: a clean "this holds up, and here's why, backed
+              by evidence" is a valid and valuable outcome. Inventing problems to look rigorous
+              is the exact failure this exists to avoid.
+            </p>
+            <p>
+              I probably get that verdict a third of the time. That's how I know it isn't
+              theater.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 24 · THE CEILING -->
+        <section>
+          <span class="kicker">but</span>
+          <h2>All of that<br />is still one model<br />arguing with itself.</h2>
+          <aside class="notes">
+            <p>
+              But go back to problem two for a second.
+            </p>
+            <p>
+              Gaslight is one model attacking one model. Same weights. The persona is
+              adversarial, the priors are identical. It catches sloppiness, scope creep, ugly
+              abstractions. Real stuff, every day.
+            </p>
+            <p>
+              It does not catch the thing the model is structurally wrong about. If Claude has a
+              wrong belief about how a library behaves, Claude-playing-a-skeptic has the same
+              wrong belief.
+            </p>
+            <p>
+              So for the changes that actually scare me, I do something more expensive.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 25 · THREE LABS -->
+        <section data-background-color="#231F1A" class="invert">
+          <span class="kicker">the triad</span>
+          <div class="grid three" style="margin-top: 0.3em">
+            <div class="panel orange">
+              <span class="tile-label">Anthropic</span
+              ><span class="tile-note">architecture,<br />blast radius</span>
+            </div>
+            <div class="panel gold" style="color: var(--ink)">
+              <span class="tile-label">OpenAI</span
+              ><span class="tile-note">spec<br />correctness</span>
+            </div>
+            <div class="panel blue">
+              <span class="tile-label">Moonshot</span
+              ><span class="tile-note">a cold read,<br />no context</span>
+            </div>
+          </div>
+          <p
+            class="lede"
+            style="margin-top: 0.8em; font-size: 0.7em; max-width: 38ch"
+          >
+            Three labs. Three training runs. Agreement across them is the
+            signal.
+          </p>
+          <aside class="notes">
+            <p>
+              Same diff, three different models, from three different labs, each in a
+              deliberately different information environment.
+            </p>
+            <p>
+              Claude gets it with full repo context and looks at architecture and blast radius.
+              GPT gets it with the ticket and checks it against the spec. Kimi gets it cold with
+              almost no context, which sounds like a handicap and is the point. It catches
+              things that only look fine if you already know why they're there.
+            </p>
+            <p>
+              Then I merge the three reports, and the ranking signal is not severity. It's
+              agreement. When two labs that share no training run independently flag the same
+              line, that's real. When only one flags it, it's worth a look and it's not
+              evidence.
+            </p>
+            <p>
+              This is slow and it costs real money and I gate it hard. I run it before something
+              lands that touches shared surface area. API contracts, design tokens, anything
+              more than one repo consumes. Never on a one-file diff.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 26 · COUNCIL -->
+        <section>
+          <span class="kicker">when there's no code yet</span>
+          <div class="grid three">
+            <div class="panel">
+              <span class="tile-label">Speed<br />to ship</span>
+            </div>
+            <div class="panel">
+              <span class="tile-label">Minimal<br />risk</span>
+            </div>
+            <div class="panel">
+              <span class="tile-label">Long-term<br />correctness</span>
+            </div>
+          </div>
+          <p
+            class="lede"
+            style="margin-top: 0.8em; font-size: 0.75em; max-width: 34ch"
+          >
+            <strong>It refuses to pick a winner.</strong>
+          </p>
+          <aside class="notes">
+            <p>
+              Variant of the same idea for when there's no code yet, just a decision.
+            </p>
+            <p>
+              Three agents, same problem, zero visibility into each other. One optimizes for
+              speed to ship and has to say what it's deliberately skipping. One optimizes for
+              smallest blast radius and has to say what it refuses to touch. One optimizes for
+              long-term structural correctness and has to name what it's rejecting as a band-
+              aid.
+            </p>
+            <p>
+              Then I get a map: where they agree, where they conflict, what only one of them
+              raised.
+            </p>
+            <p>
+              And the design decision I'm proudest of is that it will not pick a winner. It is
+              instructed, explicitly, not to resolve the disagreement. Because the disagreement
+              is the output. That's the actual decision, and that one's mine.
+            </p>
+            <p>
+              If I let it synthesize a recommendation, I'd take the recommendation. I know
+              myself. So I took the option away.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 27 · THE SUBTLE ONE -->
+        <section data-background-color="#A6332C" class="invert">
+          <span class="kicker">the bucket I'm proudest of</span>
+          <h2>"Corroborated,<br />but generic."</h2>
+          <p
+            class="lede"
+            style="margin-top: 0.7em; font-size: 0.68em; max-width: 40ch"
+          >
+            Two agents agreed — but they share a model, so this might be a
+            shared tendency rather than a real catch.
+            <strong>Not promoted.</strong>
+          </p>
+          <aside class="notes">
+            <p>
+              This is the most subtle thing in the whole system and I think it's the most useful
+              idea I'm going to give you today.
+            </p>
+            <p>
+              When I run three passes on the same model and two of them flag the same issue, the
+              obvious move is to promote it. Two agreed. Must be real.
+            </p>
+            <p>
+              But if all three run on the same weights, agreement might just be a shared
+              tendency. Both of them say "consider adding error handling" because that's a thing
+              this model says, not because it noticed something about my code.
+            </p>
+            <p>
+              So there's a third bucket, and it's separate on purpose. Corroborated, but
+              generic. Two agents agreed, and the finding is boilerplate-flavored, so it does
+              not get promoted to the top. Worth a second look. Not automatic confidence.
+            </p>
+            <p>
+              Meanwhile a single-lens finding that's specific to my actual code stays high, even
+              with nobody backing it up. A real miss doesn't need a co-signer.
+            </p>
+            <p>
+              Cross-lab agreement counts. Same-model agreement is one voice with an echo.
+              Building the difference into the output format is what makes the reports usable
+              instead of noise.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 28 · AND YET -->
+        <section data-background-color="#231F1A" class="invert">
+          <div class="quote">
+            It survived a three-agent council and a gaslight pass.<br /><br />It
+            died to ten minutes of <span class="hl-o">docker exec</span> and a
+            loop counter.
+          </div>
+          <aside class="notes">
+            <p>
+              Now the part where I undercut everything I just told you, because I'd rather you
+              hear it from me.
+            </p>
+            <p>
+              Go back to that day with me. The five wrong conclusions. One of those conclusions had a
+              whole plan built on it. That plan survived a three-agent council. It survived a
+              gaslight pass. Every layer of the machinery I just showed you looked at it and let
+              it through.
+            </p>
+            <p>
+              It died to ten minutes of docker exec and a loop counter.
+            </p>
+            <p>
+              (Beat.)
+            </p>
+            <p>
+              And the sentence I wrote at the end of that day was: adversarial review earns its
+              cost when it runs experiments, not arguments.
+            </p>
+            <p>
+              Three models reasoning at each other is still three models reasoning. It is
+              enormously better than one. It is not measurement. Every real correction I got
+              that day came from a pass that went and benchmarked something.
+            </p>
+            <p>
+              So the rule I run now, and this is the one I'd steal if I were you, is this.
+              Before you accept a claim, ask whether a tool already in your hand would settle it
+              in under a minute. One query. One curl. One grep. If yes, run the damn thing. A
+              guess you could have cheaply checked is a process failure, not a careful report.
+            </p>
+            <p>
+              Stop reasoning about it. Go and measure it. Ground truth is almost always ten
+              minutes away.
+            </p>
+          </aside>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+     ACT 3 · PILLAR C — CONTEXT
+     ═══════════════════════════════════════════════════════════ -->
+
+        <!-- 29 · PILLAR C BREAK -->
+        <section data-background-color="#43285C" class="invert">
+          <span class="kicker">three of three</span>
+          <h1>Keep the humans<br />in sync.</h1>
+          <aside class="notes">
+            <p>
+              Thing three, and this is the one Ben specifically asked me to talk about, because
+              it's the part that's about you lot and not about the robot.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 30 · THE PROBLEM -->
+        <section>
+          <h2>My context window<br />dies when the<br />session ends.</h2>
+          <p class="lede" style="margin-top: 0.6em">
+            So does my teammate's memory of why we did that thing in March.
+          </p>
+          <aside class="notes">
+            <p>
+              This is the thing that made it click for me.
+            </p>
+            <p>
+              An agent's context dies at the end of a session. Everything it worked out, every
+              dead end it ruled out, every reason behind every decision. Gone. Next session
+              starts from nothing.
+            </p>
+            <p>
+              And I sat with that for a while before realizing: that's just onboarding. That is
+              exactly what happens when a teammate goes on holiday, or leaves, or when it's
+              March and nobody remembers why we did that thing in March.
+            </p>
+            <p>
+              You don't have much turnover on this team, which is genuinely rare and I'm a little
+              jealous. So you might feel this less than we do. But your agents have one hundred
+              percent turnover, every single session, forever.
+            </p>
+            <p>
+              Same problem. Same fix. Write it down.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 31 · THE SHAPE -->
+        <section>
+          <span class="kicker">/wrap-up — one file per repo, per session</span>
+          <div class="grid two" style="gap: 0.5em">
+            <div class="panel">
+              <span class="tile-label">What<br />changed</span>
+            </div>
+            <div class="panel">
+              <span class="tile-label">Decisions<br />&amp; why</span>
+            </div>
+            <div class="panel red">
+              <span class="tile-label">Dead ends —<br />don't retry</span>
+            </div>
+            <div class="panel">
+              <span class="tile-label"
+                >Heads-up<br />for the next<br />person</span
+              >
+            </div>
+          </div>
+          <aside class="notes">
+            <p>
+              At the end of a session I type slash wrap-up, and an agent writes the file I
+              showed you at the start. It has the whole session in its context, so it isn't
+              guessing.
+            </p>
+            <p>
+              Four sections. What changed. Decisions made, and why. The why is the load-bearing
+              half.
+            </p>
+            <p>
+              Dead ends. Don't retry these. That's the one nobody writes and it's the one that
+              saves the most time, because "I tried X and it didn't work" never survives into a
+              commit message. It dies in your head or in a Slack thread nobody can find.
+            </p>
+            <p>
+              And heads-up for whoever touches this next. Landmines. What's still uncommitted,
+              what's half-done, what I left switched on in production that somebody needs to
+              switch off.
+            </p>
+            <p>
+              Filename is date, time, engineer, slug. Which sounds fussy until you have four
+              people wrapping up in the same repo on the same day and nothing collides.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 32 · THE LOOP -->
+        <section>
+          <span class="kicker">and then it closes</span>
+          <div class="map" style="margin-top: 0.4em; font-size: 0.78em">
+            <span class="from">I finish a session</span
+            ><span class="arrow">&rarr;</span
+            ><span class="to">an agent writes it down</span>
+            <span class="from">someone opens the repo</span
+            ><span class="arrow">&rarr;</span
+            ><span class="to">a hook injects it</span>
+            <span class="from">their agent starts</span
+            ><span class="arrow">&rarr;</span
+            ><span class="to">already knowing</span>
+          </div>
+          <aside class="notes">
+            <p>
+              And then the loop closes, which is the part I actually like.
+            </p>
+            <p>
+              There's a hook on session start. When anyone opens that repo, whether that's me, a
+              teammate, or an agent running on a schedule at three in the morning, it reads the
+              recent decision log entries and injects them into the session before the first
+              prompt.
+            </p>
+            <p>
+              So the knowledge doesn't sit in a wiki nobody opens. It arrives, automatically, in
+              the context of the person and the machine about to touch that code.
+            </p>
+            <p>
+              A human writes it once. Every future session inherits it. That is the closest
+              thing to a compounding return I have found in this whole space, and it's a folder
+              of markdown files.
+            </p>
+            <p>
+              One more thing on this. All of it ships as one plugin. The hooks, the review
+              skills, the wrap-up, the output types. Fifty-five skills, thirteen agents. A
+              teammate runs one install command and has the same practices I do. Which means a
+              practice stops being a preference I nag people about and becomes something the
+              tooling just does.
+            </p>
+          </aside>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+     THE TUNING
+     ═══════════════════════════════════════════════════════════ -->
+
+        <!-- 33 · NONE OF IT SHIPPED WORKING -->
+        <section data-background-color="#231F1A" class="invert">
+          <span class="kicker">the part nobody puts in the demo</span>
+          <h1>None of this<br />shipped working.</h1>
+          <p class="lede" style="margin-top: 0.7em; font-size: 0.8em">
+            The plugin is on version <strong>0.2.74</strong>.
+          </p>
+          <aside class="notes">
+            <p>
+              I've shown you the finished version of all three of these, and that's a little
+              dishonest, so let me correct it.
+            </p>
+            <p>
+              None of this arrived working. Not one piece. The plugin is on version zero point
+              two point seventy-four. That's seventy-four releases, and I am the only person
+              writing most of them. Every one of those is me finding out a rule didn't do what I
+              thought it did.
+            </p>
+            <p>
+              This is the actual skill, and it's the thing I most want you to take away, more
+              than any specific tool I've named. You do not write an instruction file once. You
+              write a first draft, you watch what the agent actually does with it, and then you
+              rewrite the rule that failed. Over and over.
+            </p>
+            <p>
+              It's the same loop as any other system you own in production. You ship a version,
+              you watch it in the wild, you find the case you didn't think of, you patch it. The
+              only difference is the runtime is a language model and the source code is English.
+            </p>
+            <p>
+              Let me show you one rule going through that, because the shape of it surprised me.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 34 · ONE RULE, THREE VERSIONS -->
+        <section>
+          <span class="kicker">one rule · three rewrites</span>
+          <div class="revisions">
+            <span class="v">v1</span>
+            <span
+              >No receipt, no claim. Downgrade it to a guess.
+              <span class="why"
+                >failed: agents labeled everything GUESS instead of spending
+                thirty seconds checking</span
+              ></span
+            >
+            <span class="v">v2</span>
+            <span
+              >If a tool in hand settles it in a minute, run it.
+              <span class="why"
+                >failed: agents started verifying every incidental
+                sentence</span
+              ></span
+            >
+            <span class="v">v3</span>
+            <span
+              >…but only when another decision depends on it.
+              <span class="why">holding, for now</span></span
+            >
+          </div>
+          <aside class="notes">
+            <p>
+              Version one of the receipts rule was the simple one. No receipt, no claim,
+              downgrade it to a guess. Clean. Obviously correct.
+            </p>
+            <p>
+              And it failed in a way I did not predict. The agents got very good at labeling
+              things GUESS, and very comfortable there. Something that would have taken one grep
+              to settle came back marked as a guess, correctly labeled and completely useless. I
+              had traded confident wrong answers for honest shrugging.
+            </p>
+            <p>
+              So version two added the opposite pressure. If a tool already in your hand settles
+              it in under a minute, run it, don't label it. And that overcorrected immediately.
+              Agents started verifying throwaway asides. Every passing remark turned into a tool
+              call. The turns got slower and no better.
+            </p>
+            <p>
+              Version three is version two with a bound on it: this only applies to statements
+              another decision actually depends on. Passing remarks stay a guess and we move on.
+            </p>
+            <p>
+              That's three rewrites of one paragraph, and I only found each problem by watching
+              real sessions fail. I could not have reasoned my way to version three from my desk.
+              And the one on the slide back there, the "everyone knows minus two" rule, came from
+              exactly this: two statements like that went through unlabeled in a live session,
+              both were checkable in under a minute, and one of them was wrong in a way that
+              would have shipped a bug.
+            </p>
+            <p>
+              So when you start doing this, expect your first instruction file to be wrong. Not
+              because you wrote it badly. Because you cannot see the failure mode until you watch
+              it happen.
+            </p>
+          </aside>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+     THE BRIDGE
+     ═══════════════════════════════════════════════════════════ -->
+
+        <!-- 35 · BRIDGE OPEN -->
+        <section data-background-color="#E0B23C">
+          <span class="kicker">the obvious objection</span>
+          <h2>"Cool. We're<br />on Codex."</h2>
+          <aside class="notes">
+            <p>
+              Right. So everything I've shown you is Claude Code, and I'm told you're not,
+              and the reasonable thing to be thinking right now is "cool story, none of this is
+              ours."
+            </p>
+            <p>
+              I assumed that too. I checked this morning, because I have a rule about not
+              asserting things I haven't verified in front of a room of people who could check.
+            </p>
+            <p>
+              It's almost all one-to-one.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 36 · THE MAP -->
+        <section>
+          <span class="kicker">verified this morning</span>
+          <div class="map">
+            <span class="from">CLAUDE.md</span><span class="arrow">&rarr;</span
+            ><span class="to">AGENTS.md</span>
+            <span class="from">.claude/skills/*/SKILL.md</span
+            ><span class="arrow">&rarr;</span
+            ><span class="to">.agents/skills/*/SKILL.md</span>
+            <span class="from">.claude/hooks.json</span
+            ><span class="arrow">&rarr;</span
+            ><span class="to">.codex/hooks.json</span>
+            <span class="from">PreToolUse, Stop, SessionStart</span
+            ><span class="arrow">&rarr;</span
+            ><span class="to">the same event names</span>
+            <span class="from">MCP servers</span
+            ><span class="arrow">&rarr;</span
+            ><span class="to">MCP servers</span>
+          </div>
+          <aside class="notes">
+            <p>
+              Rules file: CLAUDE.md, AGENTS.md. Same idea, and Codex reads AGENTS.md walking up
+              from your working directory to the repo root, so you can scope rules per package.
+            </p>
+            <p>
+              Skills: a directory with a SKILL.md, YAML frontmatter with a name and a
+              description, optional scripts and reference docs alongside. Same shape. Codex
+              reads them from .agents/skills and from your home config.
+            </p>
+            <p>
+              Hooks: this is the one that surprised me. Codex has hooks. Same file format, and
+              the event names are nearly identical. PreToolUse, PostToolUse, SessionStart, Stop,
+              UserPromptSubmit, and a few more. They can block a tool call with a reason, inject
+              context, or rewrite the arguments before it runs.
+            </p>
+            <p>
+              So the output-types guard, the destructive-command guard, the session-start
+              injection. All of that ports. It's a different config directory and the same
+              architecture.
+            </p>
+            <p>
+              MCP is MCP, that's a shared standard.
+            </p>
+            <p>
+              The honest gaps: multi-agent orchestration is shaped differently between the two,
+              so the triad and the council would need rewriting rather than porting. Everything
+              else is a directory rename.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 37 · ALREADY IN THE ROOM -->
+        <section data-background-color="#231F1A" class="invert">
+          <div class="quote">
+            Leg two of my three-lab review<br />is literally
+            <span class="hl-o">codex exec</span>.
+          </div>
+          <aside class="notes">
+            <p>
+              And the thing I'd leave you with on this point.
+            </p>
+            <p>
+              That three-lab review I described? Leg two shells out to `codex exec` on my
+              machine. Your model is already the second opinion in my most paranoid review
+              process, and the reason it's in there is that it's genuinely good at a thing
+              Claude is worse at, which is checking an implementation against a written spec.
+            </p>
+            <p>
+              You don't have to switch anything. The model isn't the interesting part. The
+              scaffolding around it is, and the scaffolding is portable.
+            </p>
+          </aside>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════════
+     CLOSE
+     ═══════════════════════════════════════════════════════════ -->
+
+        <!-- 38 · WHAT THE JOB IS -->
+        <section>
+          <span class="kicker">so what do I actually do all day</span>
+          <div class="grid four">
+            <div class="panel orange">
+              <span class="tile-label">I write<br />the rules</span
+              ><span class="tile-note">what counts as evidence</span>
+            </div>
+            <div class="panel blue">
+              <span class="tile-label">I write<br />the doubt</span
+              ><span class="tile-note">who argues, and how</span>
+            </div>
+            <div class="panel olive">
+              <span class="tile-label">I write<br />it down</span
+              ><span class="tile-note">so it survives the session</span>
+            </div>
+            <div class="panel red">
+              <span class="tile-label">I keep<br />rewriting<br />them</span
+              ><span class="tile-note">because v1 is always wrong</span>
+            </div>
+          </div>
+          <aside class="notes">
+            <p>
+              So. What do I actually do all day.
+            </p>
+            <p>
+              I write the rules about what counts as evidence. I write the systems that argue
+              with the output. And I write down what we learned so the next session doesn't
+              start from zero.
+            </p>
+            <p>
+              And then I rewrite all of it, constantly, because the first version is always
+              wrong in a way I couldn't have predicted.
+            </p>
+            <p>
+              Rules files. Skill definitions. Hook scripts. Decision logs. Specs.
+            </p>
+            <p>
+              Every one of those is prose. Every one of them is a document that has to be clear
+              enough that a reader with no context can act on it correctly. Which is precisely
+              the thing I got beaten into me in doc reviews at Amazon and resented for seven
+              years.
+            </p>
+            <p>
+              And the parts that are still stubbornly mine: knowing which problem is worth
+              solving, knowing when the answer smells wrong, and taking the decision when the
+              council hands me a disagreement and refuses to resolve it. That's judgment, and
+              nothing I've shown you today produces it.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 39 · THE CLOSE -->
+        <section data-background-color="#231F1A" class="invert">
+          <h1>I stopped<br />writing code.</h1>
+          <h1 style="margin-top: 0.5em; color: var(--henchman-gold)">
+            Turns out writing<br />was the job<br />all along.
+          </h1>
+          <aside class="notes">
+            <p>
+              Amazon took an English major and intermediate web developer and handed back an engineer. I spent years thinking
+              the engineering was the part that stuck.
+            </p>
+            <p>
+              It was the writing.
+            </p>
+            <p>
+              I stopped writing code. Turns out writing was the job all along.
+            </p>
+            <p>
+              (Beat. Let it land before you click forward. Do not talk over it.)
+            </p>
+          </aside>
+        </section>
+
+        <!-- 40 · QUESTIONS + CONTACT -->
+        <section data-background-color="#D26B3F" class="invert">
+          <span class="kicker">your turn</span>
+          <h2>What would break<br />if you tried this?</h2>
+          <div class="contact">
+            <span>
+              <span class="tag">email</span>
+              <a href="mailto:thewolff@jdwolff.com">thewolff@jdwolff.com</a>
+            </span>
+            <span>
+              <span class="tag">these slides</span>
+              <a
+                href="https://jdwolff.com/writing-was-the-job"
+                target="_blank"
+                rel="noopener noreferrer"
+                >jdwolff.com/writing-was-the-job</a
+              >
+            </span>
+            <span>
+              <span class="tag">linkedin</span>
+              <a
+                href="https://www.linkedin.com/in/josephdwolff/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >linkedin.com/in/josephdwolff</a
+              >
+            </span>
+          </div>
+          <aside class="notes">
+            <p>
+              That's me. Questions, arguments, war stories, all welcome.
+            </p>
+            <p>
+              And I'll seed it, because I know a room at eight in the morning. The question I'd
+              actually want if I were sitting where you are is: what would break if you tried
+              this on your work? You've got constraints I don't have, and a pipeline I've never
+              had to reason about. I'd genuinely like to know where this falls over against it.
+            </p>
+            <p>
+              Contact's on the slide. Email is thewolff at jdwolff dot com. The deck will live at
+              jdwolff.com slash writing-was-the-job, with the full script in it, so you don't
+              have to write any of this down. LinkedIn's there too.
+            </p>
+            <p>
+              Anything you want the actual files for, ask. Skills, the hook scripts, the wrap-up
+              template. None of it is secret and all of it is more useful to you as a starting
+              point to rewrite than as something to copy.
+            </p>
+            <p>
+              Thanks for having me. Genuinely.
+            </p>
+          </aside>
+        </section>
+      </div>
+    </div>
+    <a class="site-backlink" href="/">jdwolff.com</a>
+
+
+    <button
+      class="notes-hint"
+      type="button"
+      title="Open the speaker notes window"
+    >
+      press <kbd>S</kbd> for the script
+    </button>
+
+    <script src="vendor/reveal/reveal.js"></script>
+    <script src="vendor/reveal/plugin/notes.js"></script>
+    <script>
+      Reveal.initialize({
+        hash: true,
+        transition: "fade",
+        transitionSpeed: "fast",
+        backgroundTransition: "none",
+        controls: false,
+        progress: true,
+        slideNumber: "c/t",
+        width: 1400,
+        height: 900,
+        margin: 0.05,
+        minScale: 0.2,
+        maxScale: 2.0,
+        plugins: [RevealNotes],
+      });
+
+      // Persistent corner hint. Most people open this deck from a shared link and
+      // never learn the talk itself lives in the speaker notes, so say so — and make
+      // the hint do the thing rather than only describe it.
+      (function () {
+        var hint = document.querySelector(".notes-hint");
+        // .site-backlink only exists in the hosted copy (injected at sync time);
+        // it's listed here so one guard covers both corner chips.
+        var chrome = document.querySelectorAll(".notes-hint, .site-backlink");
+        var q = window.location.search;
+        // The speaker view embeds the deck in ?receiver iframes, where these
+        // position:fixed chips float over the slide previews.
+        var embedded = window.self !== window.top;
+        if (/print-pdf|receiver/i.test(q) || embedded) {
+          chrome.forEach(function (el) {
+            el.remove();
+          });
+          return;
+        }
+        hint.addEventListener("click", function () {
+          Reveal.getPlugin("notes").open();
+          hint.blur(); // don't leave it focused, or Space re-triggers it
+        });
+      })();
+    </script>
+  </body>
+</html>

@@ -5,7 +5,11 @@
       "Bash(curl -s http://localhost:3001/writing/self-taught)",
       "Bash(curl -s http://localhost:3001/writing)",
       "Bash(npx tsc *)",
-      "Bash(npx stylelint *)"
+      "Bash(npx stylelint *)",
+      "WebSearch",
+      "WebFetch(domain:dev.to)",
+      "Bash(dig +short redline.pub A)",
+      "Bash(dig +short redline.pub NS)"
     ]
   }
 }

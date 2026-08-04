@@ -6,7 +6,8 @@
     "dev": "next dev --webpack --port 3001",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "sync:decks": "node scripts/sync-deck.mjs"
   },
   "dependencies": {
     "@next/third-parties": "^16.2.1",
