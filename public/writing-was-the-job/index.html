@@ -998,6 +998,19 @@
               with nobody backing it up. A real miss doesn't need a co-signer.
             </p>
             <p>
+              Here's what that looks like. One leg, no co-signer, flagged this: our own decision
+              log for that branch said unpublish is the escape hatch when a staged edit gets
+              stuck. The same branch added a freshness check to unpublish. So unpublish now
+              fails on exactly the state it existed to clear. Publish fails, unpublish fails,
+              and the only way out is a direct write to the database.
+            </p>
+            <p>
+              Nobody backed it up. It went to the top of the report. Meanwhile that same run
+              produced a handful of findings of the form "add a comment explaining this
+              assumption" — reasonable, not wrong, and exactly the flavor that doesn't get
+              promoted no matter how many agents nod along.
+            </p>
+            <p>
               Cross-lab agreement counts. Same-model agreement is one voice with an echo.
               Building the difference into the output format is what makes the reports usable
               instead of noise.
