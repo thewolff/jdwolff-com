@@ -873,24 +873,6 @@
               things that only look fine if you already know why they're there.
             </p>
             <p>
-              I ran this yesterday on a commit that had already shipped. The architecture leg
-              ran out of time and returned nothing. The spec leg had no ticket to check against.
-              The only leg that produced anything was the cold read — the handicapped one — and
-              it came back with eleven findings, one of them critical.
-            </p>
-            <p>
-              The critical one: we had added a version three to our API by hand-copying the
-              version two route block and changing one hook. Nothing enforces that the two stay
-              in sync. Add a route to v2, forget to mirror it, and it is silently missing from
-              the version everyone is actually on. That had been merged for a while.
-            </p>
-            <p>
-              And the reason I trust that finding is the line underneath it. Every finding it
-              returns has a field called "first read" — what it assumed before it looked. On
-              this one it wrote: I assumed v3 was generated from a shared list. It is a parallel
-              hand-maintained block. It told me what it got wrong on the way to being right.
-            </p>
-            <p>
               Then I merge the three reports, and the ranking signal is not severity. It's
               agreement. When two labs that share no training run independently flag the same
               line, that's real. When only one flags it, it's worth a look and it's not
@@ -915,7 +897,36 @@
           </aside>
         </section>
 
-        <!-- 26 · COUNCIL -->
+        <!-- 26 · WHAT THE COLD READ FOUND -->
+        <section>
+          <span class="kicker">the handicapped leg</span>
+          <div class="quote">
+            I assumed v3 was generated from a shared list.<br /><br />It is a
+            parallel hand-maintained block.
+          </div>
+          <p class="attrib">the cold-read leg, on code that had already shipped</p>
+          <aside class="notes">
+            <p>
+              I ran this yesterday on a commit that had already shipped. The architecture leg
+              ran out of time and returned nothing. The spec leg had no ticket to check against.
+              The only leg that produced anything was the cold read — the handicapped one — and
+              it came back with eleven findings, one of them critical.
+            </p>
+            <p>
+              The critical one: we had added a version three to our API by hand-copying the
+              version two route block and changing one hook. Nothing enforces that the two stay
+              in sync. Add a route to v2, forget to mirror it, and it is silently missing from
+              the version everyone is actually on. That had been merged for a while.
+            </p>
+            <p>
+              And the reason I trust that finding is the line on the slide. Every finding it
+              returns carries a field called "first read" — what it assumed before it looked. It
+              told me what it got wrong on the way to being right.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 27 · COUNCIL -->
         <section>
           <span class="kicker">when there's no code yet</span>
           <div class="grid three">
@@ -962,7 +973,7 @@
           </aside>
         </section>
 
-        <!-- 27 · THE SUBTLE ONE -->
+        <!-- 28 · THE SUBTLE ONE -->
         <section data-background-color="#A6332C" class="invert">
           <span class="kicker">the bucket I'm proudest of</span>
           <h2>"Corroborated,<br />but generic."</h2>
@@ -994,8 +1005,22 @@
               not get promoted to the top. Worth a second look. Not automatic confidence.
             </p>
             <p>
-              Meanwhile a single-lens finding that's specific to my actual code stays high, even
-              with nobody backing it up. A real miss doesn't need a co-signer.
+              Cross-lab agreement counts. Same-model agreement is one voice with an echo.
+            </p>
+            <p>
+              And the mirror image of that rule is the one I actually rely on.
+            </p>
+          </aside>
+        </section>
+
+        <!-- 29 · NO CO-SIGNER -->
+        <section>
+          <span class="kicker">the other half of the rule</span>
+          <h2>A real miss<br />doesn't need<br />a co-signer.</h2>
+          <aside class="notes">
+            <p>
+              A single-lens finding that's specific to my actual code stays high, even with
+              nobody backing it up.
             </p>
             <p>
               Here's what that looks like. One leg, no co-signer, flagged this: our own decision
@@ -1011,14 +1036,13 @@
               promoted no matter how many agents nod along.
             </p>
             <p>
-              Cross-lab agreement counts. Same-model agreement is one voice with an echo.
-              Building the difference into the output format is what makes the reports usable
+              Building that difference into the output format is what makes the reports usable
               instead of noise.
             </p>
           </aside>
         </section>
 
-        <!-- 28 · AND YET -->
+        <!-- 30 · AND YET -->
         <section data-background-color="#231F1A" class="invert">
           <div class="quote">
             It survived a three-agent council and a gaslight pass.<br /><br />It
@@ -1093,7 +1117,7 @@
      ACT 3 · PILLAR C — CONTEXT
      ═══════════════════════════════════════════════════════════ -->
 
-        <!-- 29 · PILLAR C BREAK -->
+        <!-- 31 · PILLAR C BREAK -->
         <section data-background-color="#43285C" class="invert">
           <span class="kicker">three of three</span>
           <h1>Keep the humans<br />in sync.</h1>
@@ -1105,7 +1129,7 @@
           </aside>
         </section>
 
-        <!-- 30 · THE PROBLEM -->
+        <!-- 32 · THE PROBLEM -->
         <section>
           <h2>My context window<br />dies when the<br />session ends.</h2>
           <p class="lede" style="margin-top: 0.6em">
@@ -1135,7 +1159,7 @@
           </aside>
         </section>
 
-        <!-- 31 · THE SHAPE -->
+        <!-- 33 · THE SHAPE -->
         <section>
           <span class="kicker">/wrap-up — one file per repo, per session</span>
           <div class="grid two" style="gap: 0.5em">
@@ -1181,7 +1205,7 @@
           </aside>
         </section>
 
-        <!-- 32 · THE LOOP -->
+        <!-- 34 · THE LOOP -->
         <section>
           <span class="kicker">and then it closes</span>
           <div class="map" style="margin-top: 0.4em; font-size: 0.78em">
@@ -1228,7 +1252,7 @@
      THE TUNING
      ═══════════════════════════════════════════════════════════ -->
 
-        <!-- 33 · NONE OF IT SHIPPED WORKING -->
+        <!-- 35 · NONE OF IT SHIPPED WORKING -->
         <section data-background-color="#231F1A" class="invert">
           <span class="kicker">the part nobody puts in the demo</span>
           <h1>None of this<br />shipped working.</h1>
@@ -1263,7 +1287,7 @@
           </aside>
         </section>
 
-        <!-- 34 · ONE RULE, THREE VERSIONS -->
+        <!-- 36 · ONE RULE, THREE VERSIONS -->
         <section>
           <span class="kicker">one rule · three rewrites</span>
           <div class="revisions">
@@ -1330,7 +1354,7 @@
      THE BRIDGE
      ═══════════════════════════════════════════════════════════ -->
 
-        <!-- 35 · BRIDGE OPEN -->
+        <!-- 37 · BRIDGE OPEN -->
         <section data-background-color="#E0B23C">
           <span class="kicker">the obvious objection</span>
           <h2>"Cool. We're<br />on Codex."</h2>
@@ -1350,7 +1374,7 @@
           </aside>
         </section>
 
-        <!-- 36 · THE MAP -->
+        <!-- 38 · THE MAP -->
         <section>
           <span class="kicker">verified this morning</span>
           <div class="map">
@@ -1401,7 +1425,7 @@
           </aside>
         </section>
 
-        <!-- 37 · ALREADY IN THE ROOM -->
+        <!-- 39 · ALREADY IN THE ROOM -->
         <section data-background-color="#231F1A" class="invert">
           <div class="quote">
             Leg two of my three-lab review<br />is literally
@@ -1428,7 +1452,7 @@
      CLOSE
      ═══════════════════════════════════════════════════════════ -->
 
-        <!-- 38 · WHAT THE JOB IS -->
+        <!-- 40 · WHAT THE JOB IS -->
         <section>
           <span class="kicker">so what do I actually do all day</span>
           <div class="grid four">
@@ -1480,7 +1504,7 @@
           </aside>
         </section>
 
-        <!-- 39 · THE CLOSE -->
+        <!-- 41 · THE CLOSE -->
         <section data-background-color="#231F1A" class="invert">
           <h1>I stopped<br />writing code.</h1>
           <h1 style="margin-top: 0.5em; color: var(--henchman-gold)">
@@ -1503,7 +1527,7 @@
           </aside>
         </section>
 
-        <!-- 40 · QUESTIONS + CONTACT -->
+        <!-- 42 · QUESTIONS + CONTACT -->
         <section data-background-color="#D26B3F" class="invert">
           <span class="kicker">your turn</span>
           <h2>What would break<br />if you tried this?</h2>
