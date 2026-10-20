@@ -7,7 +7,7 @@ import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
-import { request as httpRequest } from "node:http";
+import { createServer as createHttpServer, request as httpRequest } from "node:http";
 import { createServer } from "node:net";
 import { fileURLToPath } from "node:url";
 
@@ -323,6 +323,46 @@ test("R6: Markdown links point at the serving origin, not production", async () 
     [],
     "links point at production",
   );
+});
+
+test("R6: direct Markdown handler still converts same-origin pages with queries", async () => {
+  const { h1Text } = await factsFor("/about");
+  const response = await get("/md-mirror/about?v=md&source=direct-handler-control", {
+    Cookie: "mirror_security_control=local-only",
+  });
+  assert.equal(response.status, 200);
+  assert.ok(isMarkdown(response), `got ${response.type}`);
+  assert.ok(headingLines(response.body).some((heading) => heading.startsWith(h1Text)));
+});
+
+test("R6 security: decoded separators cannot leak cookies to another origin", async (t) => {
+  const received = [];
+  const sink = createHttpServer((request, response) => {
+    received.push({ path: request.url, cookie: request.headers.cookie });
+    response.writeHead(200, { "Content-Type": "text/html" });
+    response.end("<main><h1>Local security sink</h1></main>");
+  });
+  await new Promise((resolve, reject) => {
+    sink.once("error", reject);
+    sink.listen(0, "127.0.0.1", resolve);
+  });
+  t.after(() => new Promise((resolve, reject) => {
+    sink.close((error) => error ? reject(error) : resolve());
+  }));
+  const { port } = sink.address();
+  const sentinel = "mirror_security_sentinel=local-only";
+  for (const encoded of ["%2F", "%5C", "%2F%2F", "%5C%5C"]) {
+    await t.test(encoded, async () => {
+      const path = `/md-mirror/${encoded}127.0.0.1:${port}/`;
+      const response = await get(path, { Cookie: sentinel });
+      assert.deepEqual(
+        received,
+        [],
+        `${path} reached the local sink: ${JSON.stringify(received)}`,
+      );
+      assert.equal(response.status, 400, `${path}: status`);
+    });
+  }
 });
 
 // ---------------------------------------------------------------------------

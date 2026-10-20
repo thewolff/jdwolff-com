@@ -21,6 +21,10 @@ My personal site. Built because a Google Doc with links isn't a portfolio.
 - Markdown for agents — every page answers `Accept: text/markdown` with Markdown of the same page, via [next-markdown-mirror](https://github.com/JakubKontra/next-markdown-mirror): `curl -H 'Accept: text/markdown' https://jdwolff.com/about`
 - A console game. You'll find it.
 
+The Markdown handler only converts same-origin pages. It rejects decoded slashes or
+backslashes inside a path segment with HTTP 400 before fetching HTML, so encoded
+separators cannot redirect its cookie-bearing fetch to another origin.
+
 ## Local Dev
 
 ```bash
