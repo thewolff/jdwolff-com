@@ -18,7 +18,12 @@ My personal site. Built because a Google Doc with links isn't a portfolio.
 - WCAG 2.1 AA target — accessibility is a design constraint, not a checkbox
 - JSON-LD structured data (Person + Article schemas)
 - `llms.txt` — because AI crawlers deserve good data too
+- Markdown for agents — every page answers `Accept: text/markdown` with Markdown of the same page, via [next-markdown-mirror](https://github.com/JakubKontra/next-markdown-mirror): `curl -H 'Accept: text/markdown' https://jdwolff.com/about`
 - A console game. You'll find it.
+
+The Markdown handler only converts same-origin pages. It rejects decoded slashes or
+backslashes inside a path segment with HTTP 400 before fetching HTML, so encoded
+separators cannot redirect its cookie-bearing fetch to another origin.
 
 ## Local Dev
 
@@ -40,19 +45,29 @@ Build:
 npm run build
 ```
 
+Test (builds, starts the built site, and checks HTML vs. Markdown on every page):
+
+```bash
+npm test
+```
+
 ## Structure
 
 ```
-src/app/
-├── (routes)/          # Page routes — about, work, writing, contact, accessibility
-│   ├── work/[slug]/   # Case studies — Meridian, OneChat, Dodgers
-│   └── writing/[slug] # Essays
-├── components/        # Shared UI — Header, Footer, PageLayout, JsonLd, etc.
-├── lib/               # siteConfig and other shared constants
-├── og/                # Edge runtime OG image generator
-├── sitemap.ts         # Sitemap covering all static + dynamic routes
-├── robots.ts          # robots.txt
-└── manifest.ts        # PWA manifest
+src/
+├── proxy.ts               # Sends Accept: text/markdown (or ?v=md) requests to md-mirror/
+└── app/
+    ├── (routes)/          # Page routes — about, work, writing, contact, accessibility
+    │   ├── work/[slug]/   # Case studies — Meridian, OneChat, Dodgers
+    │   └── writing/[slug] # Essays
+    ├── components/        # Shared UI — Header, Footer, PageLayout, JsonLd, etc.
+    ├── lib/               # siteConfig and other shared constants
+    ├── md-mirror/         # Route handler: converts a page's own HTML to Markdown
+    ├── og/                # Edge runtime OG image generator
+    ├── sitemap.ts         # Sitemap covering all static + dynamic routes
+    ├── robots.ts          # robots.txt
+    └── manifest.ts        # PWA manifest
+tests/                     # Content-negotiation tests (npm test)
 ```
 
 ## Writing
